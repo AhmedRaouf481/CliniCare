@@ -1,0 +1,58 @@
+<div *ngIf="patient" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <form (ngSubmit)="savePatientDetails()" class="space-y-6">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+        <input
+          id="email"
+          [(ngModel)]="patient.email"
+          name="email"
+          type="email"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+  
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+        <input
+          id="name"
+          [(ngModel)]="patient.name"
+          name="name"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+  
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
+        <input
+          id="username"
+          [(ngModel)]="patient.username"
+          name="username"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+  
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Phone:</label>
+        <input
+          id="phone"
+          [(ngModel)]="patient.phone"
+          name="phone"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+  
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+  
