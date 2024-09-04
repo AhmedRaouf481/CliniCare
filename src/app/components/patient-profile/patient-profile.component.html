@@ -1,59 +1,76 @@
-<div *ngIf="patient" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-5">
-    <form (ngSubmit)="savePatientDetails()" class="space-y-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Patient Profile</h2>
+<div *ngIf="patient" class="max-w-2xl mx-auto p-8 bg-gradient-to-r from-white to-blue-50 rounded-3xl shadow-2xl mt-10">
+  <form (ngSubmit)="savePatientDetails()" class="space-y-10">
+    <div class="border-b-2 border-gray-200 pb-6">
+      <h2 class="text-4xl font-extrabold text-gray-900">Patient Profile</h2>
+      <p class="text-lg text-gray-600 mt-2">Manage your personal information</p>
+    </div>
+
+    <div class="space-y-4">
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
-        <input
-          id="email"
-          [(ngModel)]="patient.email"
-          name="email"
-          type="email"
-          required
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <label for="email" class="block text-lg font-medium text-gray-800">Email Address</label>
+        <div class="mt-2 relative rounded-md shadow-lg">
+          <input
+            id="email"
+            [(ngModel)]="patient.email"
+            name="email"
+            type="email"
+            required
+            class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+            placeholder="you@example.com"
+          />
+        </div>
       </div>
-  
+
       <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
-        <input
-          id="name"
-          [(ngModel)]="patient.name"
-          name="name"
-          required
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <label for="name" class="block text-lg font-medium text-gray-800">Full Name</label>
+        <div class="mt-2 relative rounded-md shadow-lg">
+          <input
+            id="name"
+            [(ngModel)]="patient.name"
+            name="name"
+            required
+            class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+            placeholder="John Doe"
+          />
+        </div>
       </div>
-  
+
       <div>
-        <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
-        <input
-          id="username"
-          [(ngModel)]="patient.username"
-          name="username"
-          required
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <label for="username" class="block text-lg font-medium text-gray-800">Username</label>
+        <div class="mt-2 relative rounded-md shadow-lg">
+          <input
+            id="username"
+            [(ngModel)]="patient.username"
+            name="username"
+            required
+            class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+            placeholder="johndoe123"
+          />
+        </div>
       </div>
-  
+
       <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700">Phone:</label>
-        <input
-          id="phone"
-          [(ngModel)]="patient.phone"
-          name="phone"
-          required
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <label for="phone" class="block text-lg font-medium text-gray-800">Phone Number</label>
+        <div class="mt-2 relative rounded-md shadow-lg">
+          <input
+            id="phone"
+            [(ngModel)]="patient.phone"
+            name="phone"
+            required
+            class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+            placeholder="+1 (555) 987-6543"
+          />
+        </div>
       </div>
-  
-      <div class="flex justify-end">
-        <button
-          type="submit"
-          class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-  </div>
-  
+    </div>
+
+    <div class="flex justify-end pt-6 border-t-2 border-gray-200">
+      <button
+        type="submit"
+        class="px-10 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-offset-2 transition-transform duration-200 ease-in-out transform hover:scale-105"
+      >
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>

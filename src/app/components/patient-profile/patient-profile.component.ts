@@ -4,11 +4,12 @@ import { PatientService } from '../../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-profile',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, MatSnackBarModule],
   templateUrl: './patient-profile.component.html',
   styleUrl: './patient-profile.component.css'
 })
@@ -17,7 +18,8 @@ export class PatientProfileComponent implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar // Inject MatSnackBar here
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,18 @@ export class PatientProfileComponent implements OnInit {
 
   savePatientDetails(): void {
     if (this.patient) {
-      this.patientService.updatePatientDetails(this.patient).subscribe();
+      this.patientService.updatePatientDetails(this.patient).subscribe(() => {
+        this.showSuccessMessage(); // Show success message
+      });
     }
+  }
+
+  private showSuccessMessage(): void {
+    this.snackBar.open('Successfully saved!', 'Close', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center', // Position horizontally
+      verticalPosition: 'top', // Position vertically
+      panelClass: ['snackbar-success'] // Custom class for styling
+    });
   }
 }
