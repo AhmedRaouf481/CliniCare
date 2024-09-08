@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from '../../interfaces/patient';
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../services/patient/patient.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
