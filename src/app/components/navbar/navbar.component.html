@@ -1,5 +1,5 @@
 <!-- src/app/components/navbar/navbar.component.html -->
-<nav class="bg-blue-600 p-4 shadow-md">
+<!-- <nav class="bg-blue-600 p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
       <a class="text-white text-lg font-bold" routerLink="/">CliniCare</a>
       <ul class="flex space-x-4">
@@ -12,5 +12,29 @@
        
       </ul>
     </div>
-  </nav>
-  
+  </nav> -->
+
+  <div class="w-full flex items-center justify-between px-16 mt-10">
+  <div class="logo bg-white py-[10px] px-[50px] rounded-[20rem]">
+    <a  routerLink="/" class="text-2xl" >
+
+      Clini<span class="text-[var(--primary-color)]">Care</span>
+    </a>
+    </div>
+  <div class="navbar">
+    <div class="nav-items ">
+      <a routerLink="/" [ngClass]="{ 'active': router.url=== '/'}"  class="nav-link"
+        >Dashboard</a
+      >
+      <a routerLink="/patient/4" [ngClass]="{ 'active': router.url.includes('/patient')}"  class="nav-link"
+      >Patients</a
+      >
+      <a routerLink="/slot"  [ngClass]="{ 'active': router.url.includes('/slot')}" class="nav-link"
+      >Slots</a
+      >
+      <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url=== '/doctor/2'}"  class="nav-link"
+        >Doctor</a
+      >
+    </div>
+  </div>
+</div>

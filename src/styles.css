@@ -3,5 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primary-color: #00a4fb;
+    --secondary-color: #41316f;
+    --white-color: #fff;
+    --dark-color: #101010;
+  }
+  
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
