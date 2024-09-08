@@ -1,7 +1,7 @@
 <!-- app-layout.component.html -->
-<div class="flex flex-col h-screen">
+<div class="flex flex-col h-screen bg-gray-100">
   <!-- Navbar -->
-  <nav class="bg-blue-600 p-4 shadow-md">
+  <!-- <nav class="bg-blue-600 p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
       <a class="text-white text-lg font-bold" routerLink="/">CliniCare</a>
       <ul class="flex space-x-4">
@@ -13,16 +13,16 @@
         </li>
       </ul>
     </div>
-  </nav>
-
+  </nav> -->
+<app-navbar></app-navbar>
   <!-- Main content area -->
-  <div class="flex flex-1 overflow-hidden">
+  <!-- <div class="flex flex-1 overflow-hidden"> -->
     <!-- Sidebar -->
-    <app-sidenav class="flex-shrink-0"></app-sidenav>
+    <!-- <app-sidenav class="flex-shrink-0"></app-sidenav> -->
 
     <!-- Router outlet -->
     <main class="flex-1 p-4 overflow-y-auto">
       <router-outlet></router-outlet>
     </main>
-  </div>
+  <!-- </div> -->
 </div>
