@@ -1,0 +1,20 @@
+<div class="example-action-buttons">
+  <button mat-button (click)="accordion().openAll()">Expand All</button>
+  <button mat-button (click)="accordion().closeAll()">Collapse All</button>
+</div>
+
+<mat-accordion class="example-headers-align w-2/3" multi>
+  @for (day of week; track $index) {
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ day }} </mat-panel-title>
+      <!-- <mat-panel-description>
+            Type your name and age
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description> -->
+    </mat-expansion-panel-header>
+    <app-slot [day]="day" class="myslot"></app-slot>
+  </mat-expansion-panel>
+
+  }
+</mat-accordion>
