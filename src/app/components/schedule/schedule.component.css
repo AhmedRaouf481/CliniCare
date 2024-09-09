@@ -1,0 +1,24 @@
+.example-action-buttons {
+    padding-bottom: 20px;
+    color: var(--primary-color);
+  }
+  
+  .example-headers-align .myslot .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .myslot .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+  .example-form {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }

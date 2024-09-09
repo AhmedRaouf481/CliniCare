@@ -4,12 +4,23 @@
 @tailwind utilities;
 
 :root {
-    --primary-color: #00a4fb;
-    --secondary-color: #41316f;
-    --white-color: #fff;
-    --dark-color: #101010;
-  }
-  
+  --primary-color: #00a4fb;
+  --secondary-color: #41316f;
+  --white-color: #fff;
+  --dark-color: #101010;
+  --mat-mdc-theme-primary: var(--primary-color);
+  --mdc-text-button-label-text-color:var(--primary-color);
+}
+.mat-button {
+  background-color: var(--primary-color) !important; /* Your primary color */
+  color: white !important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

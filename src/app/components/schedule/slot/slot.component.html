@@ -1,0 +1,33 @@
+<form [formGroup]="slotForm" class="example-form">
+  <app-multi-select-field
+    [label]="'Slot'"
+    [form]="slotForm"
+    [controlName]="'slot'"
+    [placeholder]="'Pick one'"
+    [options]="slotOptions"
+    class="w-full"
+  />
+  <app-multi-select-field
+    [label]="'Clinic'"
+    [form]="slotForm"
+    [controlName]="'clinic'"
+    [placeholder]="'Pick one'"
+    [options]="clinicOptions"
+    class="w-full"
+  />
+  @if (locationOptions.length>0) {
+
+  <app-multi-select-field
+    [label]="'Location'"
+    [form]="slotForm"
+    [controlName]="'location'"
+    [placeholder]="'Pick one'"
+    [options]="locationOptions"
+    class="w-full"
+  />
+  }
+</form>
+<mat-action-row>
+  <button mat-button>Submit</button>
+  <!-- <button mat-button (click)="nextStep()">End</button> -->
+</mat-action-row>
