@@ -32,7 +32,7 @@
       <a routerLink="/schedule"  [ngClass]="{ 'active': router.url.includes('/schedule')}" class="nav-link"
       >Schedule</a
       >
-      <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url=== '/doctor/2'}"  class="nav-link"
+      <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url.includes('/doctor')}"  class="nav-link"
         >Doctor</a
       >
     </div>
