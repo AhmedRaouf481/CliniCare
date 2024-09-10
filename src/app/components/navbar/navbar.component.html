@@ -14,7 +14,7 @@
     </div>
   </nav> -->
 
-  <div class="w-full flex items-center justify-between px-16 mt-10">
+  <div class="w-full flex items-center justify-between px-16 mt-8">
   <div class="logo bg-white py-[10px] px-[50px] rounded-[20rem]">
     <a  routerLink="/" class="text-2xl" >
 
@@ -29,8 +29,8 @@
       <a routerLink="/patient/4" [ngClass]="{ 'active': router.url.includes('/patient')}"  class="nav-link"
       >Patients</a
       >
-      <a routerLink="/slot"  [ngClass]="{ 'active': router.url.includes('/slot')}" class="nav-link"
-      >Slots</a
+      <a routerLink="/schedule"  [ngClass]="{ 'active': router.url.includes('/schedule')}" class="nav-link"
+      >Schedule</a
       >
       <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url=== '/doctor/2'}"  class="nav-link"
         >Doctor</a
