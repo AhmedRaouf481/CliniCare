@@ -1,5 +1,5 @@
 import {Specialization} from "./Specialization";
-import {ClinicObject} from "./clinicObject";
+import {Clinic} from "./clinic";
 
 export interface Doctor {
   id: number;
@@ -19,7 +19,7 @@ export interface Doctor {
   specialization: Specialization;
   slots: string[];
   appointments: string[];
-  doctorClinics: ClinicObject[];
+  doctorClinics: Clinic[];
 
 
 

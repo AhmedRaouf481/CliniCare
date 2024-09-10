@@ -2,14 +2,14 @@ import {Routes} from '@angular/router';
 import {PatientProfileComponent} from './components/patient-profile/patient-profile.component';
 import {DoctorComponent} from "./components/doctor/doctor.component";
 import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.component";
-import { SlotComponent } from './components/slot/slot.component';
+// import { SlotComponent } from './components/slot/slot.component';
 
 export const routes: Routes = [
-  {
-    path: 'slot',
-    component: SlotComponent,
-    title: 'Slot'
-  },
+  // {
+  //   path: 'slot',
+  //   component: SlotComponent,
+  //   title: 'Slot'
+  // },
   {
     path: 'patient/:id',
     component: PatientProfileComponent,
