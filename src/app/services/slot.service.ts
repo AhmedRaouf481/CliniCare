@@ -45,14 +45,17 @@ export class SlotService {
     );
   }
 
-  findAllAvailableSlots(doctorId: number): Promise<string[]> {
+  findAllAvailableSlots(doctorId: number, day: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
-      let createdSlots: string[] = [];
+      let createdSlots: { startTime: string; day: string }[] = [];
 
       // Fetch existing slots for the doctor
       this.getSlotByDoctorId(doctorId).subscribe({
         next: (data) => {
-          createdSlots = data.map((slot) => slot.startTime);
+          createdSlots = data.map((slot) => ({
+            startTime: slot.startTime,
+            day: slot.weekDay,
+          }));
 
           const duration = 30; // duration in minutes
           let slots: string[] = [];
@@ -66,7 +69,11 @@ export class SlotService {
             let startTime = from.toTimeString().split(' ')[0]; // Get HH:MM:SS
 
             // If the time slot isn't already in created slots, add it
-            if (!createdSlots.includes(startTime)) {
+            if (
+             !createdSlots.find((slot) => {
+                return slot.startTime === startTime && slot.day === day;
+              })
+            ) {
               slots.push(startTime);
             }
 

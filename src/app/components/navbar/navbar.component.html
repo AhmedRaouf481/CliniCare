@@ -14,25 +14,36 @@
     </div>
   </nav> -->
 
-  <div class="w-full flex items-center justify-between px-16 mt-8">
+<div class="w-full flex items-center justify-between px-16 mt-8 mb-4">
   <div class="logo bg-white py-[10px] px-[50px] rounded-[20rem]">
-    <a  routerLink="/" class="text-2xl" >
-
+    <a routerLink="/" class="text-2xl">
       Clini<span class="text-[var(--primary-color)]">Care</span>
     </a>
-    </div>
+  </div>
   <div class="navbar">
-    <div class="nav-items ">
-      <a routerLink="/" [ngClass]="{ 'active': router.url=== '/'}"  class="nav-link"
+    <div class="nav-items">
+      <a
+        routerLink="/"
+        [ngClass]="{ active: router.url === '/' }"
+        class="nav-link"
         >Dashboard</a
       >
-      <a routerLink="/patient/4" [ngClass]="{ 'active': router.url.includes('/patient')}"  class="nav-link"
-      >Patients</a
+      <a
+        routerLink="/patient/4"
+        [ngClass]="{ active: router.url.includes('/patient') }"
+        class="nav-link"
+        >Patients</a
       >
-      <a routerLink="/schedule"  [ngClass]="{ 'active': router.url.includes('/schedule')}" class="nav-link"
-      >Schedule</a
+      <a
+        routerLink="/schedule"
+        [ngClass]="{ active: router.url.includes('/schedule') }"
+        class="nav-link"
+        >Schedule</a
       >
-      <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url.includes('/doctor')}"  class="nav-link"
+      <a
+        routerLink="/doctor/3"
+        [ngClass]="{ active: router.url.includes('/doctor') }"
+        class="nav-link"
         >Doctor</a
       >
     </div>

@@ -183,7 +183,8 @@ export class SlotComponent implements OnInit, OnDestroy {
 
   // Fetch available slots for the doctor
   private fetchSlotOptions(): void {
-    this._slotService.findAllAvailableSlots(this.doctorId).then((slots) => {
+    this._slotService.findAllAvailableSlots(this.doctorId,this.day.toUpperCase()).then((slots) => {
+      console.log(slots);
       this.slotOptions = slots.map((slot) => ({
         name: this.slotDuration.transform(slot, 30),
         startTime: slot,
@@ -219,13 +220,13 @@ export class SlotComponent implements OnInit, OnDestroy {
     };
 
     this._slotService.addSlot(newSlot).subscribe({
-      next: () => {
+      error: (err) => this.showFeedbackMessage(err.error.message, 'error-snackbar'),
+      complete: () => {
         this.showFeedbackMessage('Slot added successfully', 'success-snackbar');
         this.fetchDoctorSlots();
         this.fetchSlotOptions()
+        this.slotForm.reset()
       },
-      error: (err) => this.showFeedbackMessage(err.error.message, 'error-snackbar'),
-      complete: () => this.slotForm.reset(),
     });
   }
 
@@ -243,9 +244,9 @@ export class SlotComponent implements OnInit, OnDestroy {
     };
 
     this._slotService.editSlot(this.existSlotForm.value.slot[0].id, updatedSlot).subscribe({
-      next: () => this.showFeedbackMessage('Slot updated successfully', 'success-snackbar'),
       error: (err) => this.showFeedbackMessage(err.error.message, 'error-snackbar'),
       complete: () => {
+        this.showFeedbackMessage('Slot updated successfully', 'success-snackbar')
         this.fetchDoctorSlots()
         this.fetchSlotOptions()
         this.isEdit = false;
@@ -258,13 +259,13 @@ export class SlotComponent implements OnInit, OnDestroy {
   deleteSlot(): void {
     const slotId = this.existSlotForm.value.slot[0].id;
     this._slotService.deleteSlot(slotId).subscribe({
-      next: () => {
+      error: (err) => console.error('Error deleting slot:', err.message),
+      complete: () => {
         this.showFeedbackMessage('Slot deleted successfully', 'success-snackbar')
         this.fetchDoctorSlots();
         this.slotForm.reset();
         this.isEdit =false
       },
-      error: (err) => console.error('Error deleting slot:', err.message),
     });
   }
 
