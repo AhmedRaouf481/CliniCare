@@ -1,0 +1,80 @@
+<div class="max-w-2xl mx-auto p-8 bg-gradient-to-r from-white to-blue-50 rounded-3xl shadow-2xl mt-10">
+    <form (ngSubmit)="createInvoice()" class="space-y-10">
+      <div class="border-b-2 border-gray-200 pb-6">
+        <h2 class="text-4xl font-extrabold text-gray-900">Create New Invoice</h2>
+        <p class="text-lg text-gray-600 mt-2">Enter the invoice details</p>
+      </div>
+  
+      <div class="space-y-4">
+        <div>
+          <label for="patientId" class="block text-lg font-medium text-gray-800">Patient ID</label>
+          <div class="mt-2 relative rounded-md shadow-lg">
+            <input
+              id="patientId"
+              [(ngModel)]="invoice.patientId"
+              name="patientId"
+              type="number"
+              required
+              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+              placeholder="Enter patient ID"
+            />
+          </div>
+        </div>
+  
+        <div>
+          <label for="appointmentId" class="block text-lg font-medium text-gray-800">Appointment ID</label>
+          <div class="mt-2 relative rounded-md shadow-lg">
+            <input
+              id="appointmentId"
+              [(ngModel)]="invoice.appointmentId"
+              name="appointmentId"
+              type="number"
+              required
+              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+              placeholder="Enter appointment ID"
+            />
+          </div>
+        </div>
+  
+        <div>
+          <label for="amount" class="block text-lg font-medium text-gray-800">Amount</label>
+          <div class="mt-2 relative rounded-md shadow-lg">
+            <input
+              id="amount"
+              [(ngModel)]="invoice.amount"
+              name="amount"
+              type="number"
+              required
+              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+              placeholder="Enter invoice amount"
+            />
+          </div>
+        </div>
+  
+        <div>
+          <label for="status" class="block text-lg font-medium text-gray-800">Status</label>
+          <div class="mt-2 relative rounded-md shadow-lg">
+            <input
+              id="status"
+              [(ngModel)]="invoice.status"
+              name="status"
+              type="text"
+              required
+              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
+              placeholder="Enter invoice status"
+            />
+          </div>
+        </div>
+      </div>
+  
+      <div class="flex justify-end pt-6 border-t-2 border-gray-200">
+        <button
+          type="submit"
+          class="px-10 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-offset-2 transition-transform duration-200 ease-in-out transform hover:scale-105"
+        >
+          Create Invoice
+        </button>
+      </div>
+    </form>
+  </div>
+  

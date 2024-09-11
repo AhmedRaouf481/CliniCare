@@ -3,6 +3,8 @@ import {PatientProfileComponent} from './components/patient-profile/patient-prof
 import {DoctorComponent} from "./components/doctor/doctor.component";
 import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.component";
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { InvoiceCreateComponent } from './components/invoice-create/invoice-create.component';
+import { InvoiceDisplayComponent } from './components/invoice-display/invoice-display.component';
 
 export const routes: Routes = [
   {
@@ -24,5 +26,15 @@ export const routes: Routes = [
     path: "doctor/edit/:id",
     component: DoctorEditComponent,
     title: "Doctor Edit"
+  },
+  {
+    path: 'invoice/create',
+    component: InvoiceCreateComponent,
+    title: 'Create Invoice'
+  },
+  {
+    path: 'invoice/display',
+    component:InvoiceDisplayComponent,
+    title:'Display Invoice'
   }
 ];

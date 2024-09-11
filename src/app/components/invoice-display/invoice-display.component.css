@@ -1,0 +1,80 @@
+/* General table styling */
+.invoice-table {
+    width: 100%;
+    margin: 20px 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-cell {
+    font-size: 14px;
+    padding: 12px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-row:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Styling for status pills */
+  .status-pill {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .status-pill.paid {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .status-pill.pending {
+    background-color: #ffc107;
+    color: #333;
+  }
+  
+  .status-pill.cancelled {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Adjust the shadow depth */
+  .mat-elevation-z8 {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Typography for the table */
+  .invoice-table th,
+  .invoice-table td {
+    text-align: left;
+    padding: 16px;
+  }
+  
+  .mat-header-cell {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #555;
+  }
+  
+  .mat-cell {
+    font-size: 14px;
+    color: #333;
+  }
+  

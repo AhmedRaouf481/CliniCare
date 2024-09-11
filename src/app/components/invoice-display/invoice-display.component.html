@@ -1,0 +1,28 @@
+<table mat-table [dataSource]="invoices" class="mat-elevation-z8 invoice-table">
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let invoice"> {{invoice.createdAt | date:'longDate'}} </td>
+    </ng-container>
+  
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let invoice"> {{invoice.amount | currency:'USD':true}} </td>
+    </ng-container>
+  
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let invoice">
+        <span class="status-pill" [ngClass]="invoice.status | lowercase">{{ invoice.status }}</span>
+      </td>
+    </ng-container>
+  
+    <!-- Define the header and row renderers -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+  

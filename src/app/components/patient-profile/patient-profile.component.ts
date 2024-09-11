@@ -3,31 +3,45 @@ import { Patient } from '../../interfaces/patient';
 import { PatientService } from '../../services/patient/patient.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSnackBarModule],
+  imports: [CommonModule, FormsModule, MatSnackBarModule,ReactiveFormsModule],
   templateUrl: './patient-profile.component.html',
   styleUrl: './patient-profile.component.css'
 })
 export class PatientProfileComponent implements OnInit {
   patient: Patient | undefined;
+  editForm!: FormGroup;
 
   constructor(
     private patientService: PatientService,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar // Inject MatSnackBar here
+    private snackBar: MatSnackBar,
+    private _formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.patientService.getPatientDetails(id).subscribe((data) => {
       this.patient = data;
+      this.populateForm();
     });
+    this.createEditForm();
   }
+  createEditForm(): void {
+    this.editForm = this._formBuilder.group({
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(14)]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required]],
+        password: [null, [Validators.minLength(6)]],
+        confirmPassword: [null, [Validators.minLength(6)]],
+    })
+}
 
   savePatientDetails(): void {
     if (this.patient) {
@@ -44,5 +58,15 @@ export class PatientProfileComponent implements OnInit {
       verticalPosition: 'top', // Position vertically
       panelClass: ['snackbar-success'] // Custom class for styling
     });
+  }
+  populateForm(): void {
+    if (this.patient) {
+      this.editForm.patchValue({
+        name: this.patient.name,
+        username: this.patient.username,
+        email: this.patient.email,
+        phone: this.patient.phone
+      });
+    }
   }
 }
