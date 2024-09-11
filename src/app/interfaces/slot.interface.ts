@@ -12,3 +12,14 @@ export interface Slot {
   };
   weekDay: string;
 }
+
+export interface SlotRequestInterface {
+  doctor?:{
+        id:number
+    },
+    clinicLocation:{
+        id:number
+    },
+    startTime: string,
+    weekDay: string
+}

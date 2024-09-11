@@ -6,7 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-schedule',
   standalone: true,
-  imports: [SlotComponent,    MatButtonModule, MatExpansionModule],
+  imports: [SlotComponent, 
+       MatButtonModule,
+        MatExpansionModule],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.css',
 })
