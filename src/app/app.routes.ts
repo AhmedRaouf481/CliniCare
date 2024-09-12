@@ -5,6 +5,7 @@ import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.componen
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { InvoiceCreateComponent } from './components/invoice-create/invoice-create.component';
 import { InvoiceDisplayComponent } from './components/invoice-display/invoice-display.component';
+import { MedicalRecordComponent } from './components/medical-record/medical-record.component';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,11 @@ export const routes: Routes = [
     path: 'invoice/display',
     component:InvoiceDisplayComponent,
     title:'Display Invoice'
+  },
+  {
+    path: 'medicalRecord/display/:id',
+    component:MedicalRecordComponent,
+    title:'Display medicalRecord'
+
   }
 ];
