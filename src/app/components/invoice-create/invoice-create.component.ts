@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { InvoiceDataService } from '../../services/invoice-data.service';
 
 @Component({
   selector: 'app-invoice-create',
@@ -14,8 +15,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./invoice-create.component.css']
 })
 export class InvoiceCreateComponent implements OnInit {
-  @Input() patientId!: number;    // Using @Input decorator for patientId
-  @Input() appointmentId!: number;  // Using @Input decorator for appointmentId
+  /*@Input() patientId!: number;    // Using @Input decorator for patientId
+  @Input() appointmentId!: number;  // Using @Input decorator for appointmentId*/
   createForm!: FormGroup;
 
   constructor(
@@ -23,13 +24,16 @@ export class InvoiceCreateComponent implements OnInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
+    private invoiceDataService: InvoiceDataService
   ) { }
 
   ngOnInit(): void {
     // Initialize the form and set values for patientId and appointmentId from Input properties
+    const patientId = this.invoiceDataService.getPatientId();
+    const appointmentId = this.invoiceDataService.getAppointmentId();
     this.createForm = this._formBuilder.group({
-      patientId: [this.patientId, [Validators.required, Validators.min(1)]],
-      appointmentId: [this.appointmentId, [Validators.required, Validators.min(1)]],
+      patientId: [patientId, [Validators.required, Validators.min(1)]],
+      appointmentId: [appointmentId, [Validators.required, Validators.min(1)]],
       amount: [0, [Validators.required, Validators.min(1)]],
       status: ['', [Validators.required, Validators.minLength(3)]],
       createdAt: [''],
