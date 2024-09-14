@@ -11,9 +11,13 @@
     />
     <!-- [formControl]="myControl" -->
     <mat-icon matSuffix>arrow_drop_down</mat-icon>
-    <mat-autocomplete #auto="matAutocomplete">
-      @for (option of filteredOptions | async ; track option) {
-      <mat-option [value]="option">{{ option }}</mat-option>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="displayFn.bind(this)"
+      (optionSelected)="onOptionSelected($event)"
+    >
+      @for (option of filteredOptions | async ; track $index) {
+      <mat-option [value]="option">{{ option?.name }}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>

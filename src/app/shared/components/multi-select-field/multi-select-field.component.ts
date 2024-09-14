@@ -1,5 +1,16 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -21,22 +32,20 @@ import { MatIconModule } from '@angular/material/icon';
     AsyncPipe,
   ],
   templateUrl: './multi-select-field.component.html',
-  styleUrls: ['./multi-select-field.component.css']
+  styleUrls: ['./multi-select-field.component.css'],
 })
-export class MultiSelectFieldComponent implements OnInit,OnChanges {
+export class MultiSelectFieldComponent implements OnInit, OnChanges {
   @Input() form!: FormGroup;
   @Input() controlName!: string;
-  @Input() options: string[] = [];
+  @Input() options: any[] = [];
   @Input() label: string = '';
   @Input() placeholder: string = '';
-  filteredOptions?: Observable<string[]>;
+  filteredOptions?: Observable<any[]>;
 
-
-
- 
   ngOnInit() {
     // This sets up the initial valueChanges observable.
     this.setupFiltering();
+    console.log(this.form.get(this.controlName)?.value?.name);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -48,23 +57,26 @@ export class MultiSelectFieldComponent implements OnInit,OnChanges {
 
   private setupFiltering() {
     if (this.form && this.controlName) {
-      this.filteredOptions = this.form.get(this.controlName)?.valueChanges.pipe(
-        startWith(''), // Start with empty string so options are displayed initially.
-        map(value => this._filter(value || '')), // Call filter with current input value.
-      );
+      const control = this.form.get(this.controlName);
+      if (control) {
+        this.filteredOptions = control.valueChanges.pipe(
+          startWith(control.value || ''), // Use current value as the start
+          map((value) => (typeof value === 'string' ? value : value?.name)), 
+          map((name) => (name ? this._filter(name) : this.options.slice()))
+        );
+      }
     }
   }
-
-  private _filter(value: string): string[] {
-    if (!value) {
-      return this.options
-    }
-    const filterValue = value.toLowerCase();
-    console.log("value",value);
-    console.log("options",this.options);
-    
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  displayFn(option: any): string { // ChatGPt
+    return option && option.name ? option.name : '';
   }
-
-
+  onOptionSelected(event: any) {
+    const selectedOption = event.option.value;
+    console.log('Selected:', selectedOption);
+  }
+   // Method to filter the options
+   private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
 }

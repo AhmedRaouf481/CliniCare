@@ -9,32 +9,73 @@
         <li>
           <a routerLink="/dashboard" class="text-white hover:text-blue-300">Dashboard</a>
         </li>
-       
+
       </ul>
     </div>
   </nav> -->
 
-  <div class="w-full flex items-center justify-between px-16 mt-8">
+<div class="w-full flex items-center justify-between px-16 mt-8 mb-4">
   <div class="logo bg-white py-[10px] px-[50px] rounded-[20rem]">
-    <a  routerLink="/" class="text-2xl" >
-
+    <a routerLink="/" class="text-2xl">
       Clini<span class="text-[var(--primary-color)]">Care</span>
     </a>
-    </div>
-  <div class="navbar">
-    <div class="nav-items ">
-      <a routerLink="/" [ngClass]="{ 'active': router.url=== '/'}"  class="nav-link"
-        >Dashboard</a
-      >
-      <a routerLink="/patient/4" [ngClass]="{ 'active': router.url.includes('/patient')}"  class="nav-link"
-      >Patients</a
-      >
-      <a routerLink="/schedule"  [ngClass]="{ 'active': router.url.includes('/schedule')}" class="nav-link"
-      >Schedule</a
-      >
-      <a routerLink="/doctor/3"  [ngClass]="{ 'active': router.url.includes('/doctor')}"  class="nav-link"
-        >Doctor</a
-      >
-    </div>
   </div>
+  @if (authService.isLoggedIn()) {
+    <div class="navbar">
+      <div class="nav-items">
+        <a
+          routerLink="/home"
+          routerLinkActive='active'
+          class="nav-link"
+        >Home</a
+        >
+        @if (authService.isPatient()) {
+          <a
+            [routerLink]="['/patient', authService.getUserId()]"
+            routerLinkActive='active'
+            class="nav-link"
+          >Patient Profile</a
+          >
+        }
+        @if (authService.isDoctor()) {
+          <a
+            routerLink="schedule"
+            routerLinkActive='active'
+            class="nav-link"
+          >Schedule</a
+          >
+
+          <a
+            [routerLink]="['/doctor', authService.getUserId()]"
+            routerLinkActive='active'
+            class="nav-link"
+          >Doctor Profile</a
+          >
+        }
+        <button
+          (click)="authService.logout()"
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="navbar">
+      <a
+        routerLink="/login"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out mr-2"
+      >
+        Login
+      </a>
+      <a
+        routerLink="/register"
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+      >
+        Register
+      </a>
+    </div>
+  }
+
+
 </div>

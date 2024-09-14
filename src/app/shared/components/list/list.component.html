@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+  <mat-selection-list
+    [formControlName]="controlName"
+    (selectionChange)="onSelectionChange($event)"
+  >
+    @for (item of list; track $index) {
+    <mat-list-option [value]="item">
+      {{ item.startTime | slotDuration: 30 }}
+    </mat-list-option>
+    }
+  </mat-selection-list>
+  <p>
+    
+    {{
+      form.get(controlName)?.value && form.get(controlName)?.value[0]
+        ? "Slot selected:"
+        : "Create new slot:"
+    }}
+  </p>
+</form>

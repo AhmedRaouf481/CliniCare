@@ -1,0 +1,194 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <!--    <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">-->
+    <div class="logo bg-white mx-auto h-10 w-auto rounded-[20rem] flex justify-center">
+      <a routerLink="/" class="text-5xl">
+        Clini<span class="text-[var(--primary-color)]">Care</span>
+      </a>
+    </div>
+    <div class="mt-4">
+      <p class="mt-8 text-center text-2xl leading-9 font-extrabold text-gray-900 flex justify-evenly">
+        Create a new account
+      </p>
+    </div>
+  </div>
+
+  <div class=" sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <form method="POST" [formGroup]="registerForm" (submit)="onSubmit()">
+        <div>
+          <label for="email" class="block text-sm font-medium leading-5  text-gray-700">Name</label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input id="name" name="name" placeholder="John Doe" type="text" required="" formControlName="name"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                    focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+            >
+          </div>
+          @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+            <small class="mt-2 text-sm text-red-600 dark:text-red-500">Name field is Required!</small>
+          }
+
+        </div>
+
+        <div class="mt-6">
+          <label for="username" class="block text-sm font-medium leading-5 text-gray-700">Username</label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <input id="username" name="username" placeholder="UserName" type="text"
+                   required="" formControlName="username"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                    focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+            >
+          </div>
+          @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+            <small class="mt-2 text-sm text-red-600 dark:text-red-500">Username field is Required!</small>
+          }
+        </div>
+
+        <div class="mt-6">
+          <label for="phone" class="block text-sm font-medium leading-5 text-gray-700">Phone Number</label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <input id="phone" name="phone" placeholder="+20 155 321 6735" type="text"
+                   required="" formControlName="phone"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                    focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched"
+            >
+          </div>
+          @if (registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched) {
+            <small class="mt-2 text-sm text-red-600 dark:text-red-500">Phone field is Required!</small>
+          }
+        </div>
+
+        <div class="mt-6">
+          <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
+            Email address
+          </label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input id="email" name="email" placeholder="user@example.com" type="email"
+                   required="" formControlName="email"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                   focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+            >
+          </div>
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <small class="mt-2 text-sm text-red-600 dark:text-red-500">Email field is Required!</small>
+          }
+        </div>
+
+        <div class="mt-6">
+          <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
+            Password
+          </label>
+          <div class="mt-1 rounded-md shadow-sm">
+            <input id="password" name="password" type="password" required="" placeholder="********"
+                   formControlName="password"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                   focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            >
+          </div>
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <small class="mt-2 text-sm text-red-600 dark:text-red-500">Password field is Required!</small>
+          }
+        </div>
+
+        <div class="mt-6">
+          <label for="password_confirmation" class="block text-sm font-medium leading-5 text-gray-700">
+            Confirm Password
+          </label>
+          <div class="mt-1 rounded-md shadow-sm">
+            <input id="password_confirmation" name="password_confirmation" type="password" required=""
+                   formControlName="passwordConfirm"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                   focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                   [class.border-red-700]="registerForm.get('passwordConfirm')?.untouched && registerForm.get('passwordConfirm')?.value !== registerForm.get('password')?.value"
+            >
+          </div>
+          @if (!registerForm.get('passwordConfirm')?.untouched && registerForm.get('passwordConfirm')?.value !== registerForm.get('password')?.value) {
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Confirm Password Must match the Original
+              Password!</p>
+          }
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <span class="flex-grow flex flex-col">
+            <span class="text-sm font-medium text-gray-900">Register as a Doctor</span>
+            <span class="text-sm text-gray-500">Enable this if you're a medical professional</span>
+          </span>
+          <button type="button" (click)="toggleDoctorRegistration()"
+                  [class]="registerForm.get('isDoctor')?.value ? 'bg-blue-600' : 'bg-gray-200'"
+                  class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  role="switch" aria-checked="false">
+            <span aria-hidden="true"
+                  [class]="registerForm.get('isDoctor')?.value ? 'translate-x-5' : 'translate-x-0'"
+                  class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+          </button>
+        </div>
+
+        @if (registerForm.get('isDoctor')?.value == true) {
+          <div class="mt-6">
+            <label for="summary" class="block text-sm font-medium leading-5 text-gray-700">Summary</label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <textarea id="summary" formControlName="summary" rows="3"
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        placeholder="Brief description of your medical background"
+                        [class.border-red-700]="registerForm.get('summary')?.invalid && registerForm.get('summary')?.touched"
+              ></textarea>
+            </div>
+            @if (registerForm.get('summary')?.invalid && registerForm.get('summary')?.touched) {
+              <small class="mt-2 text-sm text-red-600 dark:text-red-500">Summary field is required!</small>
+            }
+          </div>
+
+          <div class="mt-6">
+            <label for="salary" class="block text-sm font-medium leading-5 text-gray-700">Salary</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <input id="salary" formControlName="salary" type="number" placeholder="0" step="100"
+                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none
+                     focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                     [class.border-red-700]="registerForm.get('salary')?.invalid && registerForm.get('salary')?.touched"
+              >
+            </div>
+            @if (registerForm.get('salary')?.invalid && registerForm.get('salary')?.touched) {
+              <small class="mt-2 text-sm text-red-600 dark:text-red-500">Salary field is required!</small>
+            }
+          </div>
+
+          <div class="mt-6">
+            <label for="specialization" class="block text-sm font-medium leading-5 text-gray-700">Specialization</label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <select id="specialization" formControlName="specialization"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                <option value="" selected disabled>Select a specialization</option>
+                @for (spec of specializations; track spec.id) {
+                  <option value="{{spec.id}}" [ngValue]="spec">{{ spec.name }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        }
+
+        <div class="mt-6">
+                    <span class="block w-full rounded-md shadow-sm">
+                        <button type="submit"
+                                class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                            Create account
+                        </button>
+                    </span>
+        </div>
+      </form>
+      <div class="mt-6">
+        <p class="mt-8 text-center text-sm leading-5 text-gray-500 max-w">
+          already have an account?
+          <a routerLink="/login"
+             class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+            login to your account
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
