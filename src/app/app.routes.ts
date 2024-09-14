@@ -2,18 +2,29 @@ import {Routes} from '@angular/router';
 import {PatientProfileComponent} from './components/patient-profile/patient-profile.component';
 import {DoctorComponent} from "./components/doctor/doctor.component";
 import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.component";
-import { ScheduleComponent } from './components/schedule/schedule.component';
-import { InvoiceCreateComponent } from './components/invoice-create/invoice-create.component';
-import { InvoiceDisplayComponent } from './components/invoice-display/invoice-display.component';
+import {ScheduleComponent} from './components/schedule/schedule.component';
+import {InvoiceCreateComponent} from './components/invoice-create/invoice-create.component';
+import {InvoiceDisplayComponent} from './components/invoice-display/invoice-display.component';
 import {RegistrationComponent} from "./components/registeration/registration.component";
 import {LoginComponent} from "./components/login/login.component";
 import {UnauthorizedComponent} from "./components/errors/unauthorized/unauthorized.component";
 import {NotFoundComponent} from "./components/errors/not-found/not-found.component";
 import {activeUserGuard} from "./guards/active-user/active-user.guard";
+import {HomeComponent} from "./components/home/home.component";
 
 export const routes: Routes = [
 
-
+  {
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full"
+  },
+  {
+    path: "home",
+    component: HomeComponent,
+    title: "home",
+    canActivate: [activeUserGuard]
+  },
   {
     path: 'schedule',
     component: ScheduleComponent,
@@ -50,8 +61,8 @@ export const routes: Routes = [
   },
   {
     path: 'invoice/display',
-    component:InvoiceDisplayComponent,
-    title:'Display Invoice',
+    component: InvoiceDisplayComponent,
+    title: 'Display Invoice',
     canActivate: [activeUserGuard]
 
   },
@@ -59,7 +70,6 @@ export const routes: Routes = [
     path: 'register',
     component: RegistrationComponent,
     title: "Register",
-    canActivate: [activeUserGuard]
 
   },
   {
