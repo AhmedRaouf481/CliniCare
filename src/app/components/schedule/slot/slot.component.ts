@@ -1,34 +1,23 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  DoCheck,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
-  viewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MultiSelectFieldComponent } from '../../../shared/components/multi-select-field/multi-select-field.component';
 import { ClinicService } from '../../../services/clinic.service';
 import { Clinic } from '../../../interfaces/clinic';
@@ -38,16 +27,7 @@ import { ListComponent } from '../../../shared/components/list/list.component';
 import { Subscription } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
-
-// Validator to check if input is a valid object from autocomplete options
-function autocompleteObjectValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    return typeof control.value === 'string' 
-      ? { invalidAutocompleteObject: { value: control.value } } 
-      : null; // Valid object selected
-  };
-}
+import { autocompleteObjectValidator } from '../../../shared/util/autocompeleteObjectValidator';
 
 @Component({
   selector: 'app-slot',
@@ -175,7 +155,6 @@ export class SlotComponent implements OnInit, OnDestroy {
         }));
       }
     });
-
     if (sub) { 
       this.subs.push(sub);
     }

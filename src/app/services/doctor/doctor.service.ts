@@ -16,6 +16,11 @@ export class DoctorService {
   private specs_api_url = "http://localhost:8080/api/specs"
   private doctor_clinics_url = "http://localhost:8080/api/doctor-clinic"
 
+  getAllDoctors(): Observable<Doctor[]>
+  {
+    return this._httpClient.get<Doctor[]>(`${this.doctors_api_url}`);
+  }
+
   getDoctor(id:number): Observable<Doctor>
   {
     return this._httpClient.get<Doctor>(`${this.doctors_api_url}/${id}`);

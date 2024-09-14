@@ -23,10 +23,10 @@
   <div class="navbar">
     <div class="nav-items">
       <a
-        routerLink="/"
-        [ngClass]="{ active: router.url === '/' }"
+        routerLink="/appointment"
+        [ngClass]="{ active: router.url.includes('/appointment') }"
         class="nav-link"
-        >Dashboard</a
+        >Appointments</a
       >
       <a
         routerLink="/patient/4"

@@ -14,4 +14,8 @@ export class ClinicService {
   getClinicByDoctorId(doctorId: number):Observable<Clinic[]>{
     return this._httpclient.get<Clinic[]>(`${URLs.ApiBaseUrl+ URLs.doctorClinics(doctorId)}`);
   }
+
+  getAllClinics():Observable<Clinic[]>{
+    return this._httpclient.get<Clinic[]>(`${URLs.ApiBaseUrl+ URLs.clinic}`);
+  }
 }

@@ -6,4 +6,6 @@ export const URLs = {
   slot: '/slot',
   doctorSlots: (doctorId: number) => `/slot/doctor/${doctorId}`,
   doctorClinics: (doctorId: number) => `/clinics/doctor/${doctorId}`,
+  clinic: '/clinics',
+  location: '/locations',
 };
