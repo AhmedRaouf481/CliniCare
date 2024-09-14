@@ -5,36 +5,76 @@ import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.componen
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { InvoiceCreateComponent } from './components/invoice-create/invoice-create.component';
 import { InvoiceDisplayComponent } from './components/invoice-display/invoice-display.component';
+import {RegistrationComponent} from "./components/registeration/registration.component";
+import {LoginComponent} from "./components/login/login.component";
+import {UnauthorizedComponent} from "./components/errors/unauthorized/unauthorized.component";
+import {NotFoundComponent} from "./components/errors/not-found/not-found.component";
+import {activeUserGuard} from "./guards/active-user/active-user.guard";
 
 export const routes: Routes = [
+
+
   {
     path: 'schedule',
     component: ScheduleComponent,
-    title: 'Doctor Schedule'
+    title: 'Doctor Schedule',
+    canActivate: [activeUserGuard]
   },
   {
     path: 'patient/:id',
     component: PatientProfileComponent,
-    title: 'Patient Profile'
+    title: 'Patient Profile',
+    canActivate: [activeUserGuard]
+
   },
   {
     path: "doctor/:id",
     component: DoctorComponent,
-    title: "Doctor"
+    title: "Doctor",
+    canActivate: [activeUserGuard]
+
   },
   {
     path: "doctor/edit/:id",
     component: DoctorEditComponent,
-    title: "Doctor Edit"
+    title: "Doctor Edit",
+    canActivate: [activeUserGuard]
+
   },
   {
     path: 'invoice/create',
     component: InvoiceCreateComponent,
-    title: 'Create Invoice'
+    title: 'Create Invoice',
+    canActivate: [activeUserGuard]
+
   },
   {
     path: 'invoice/display',
     component:InvoiceDisplayComponent,
-    title:'Display Invoice'
+    title:'Display Invoice',
+    canActivate: [activeUserGuard]
+
+  },
+  {
+    path: 'register',
+    component: RegistrationComponent,
+    title: "Register",
+    canActivate: [activeUserGuard]
+
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: "login"
+  },
+  {
+    path: 'forbidden',
+    component: UnauthorizedComponent,
+    title: 'forbidden'
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    title: 'Not Found !'
   }
 ];

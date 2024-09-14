@@ -9,7 +9,7 @@
         <li>
           <a routerLink="/dashboard" class="text-white hover:text-blue-300">Dashboard</a>
         </li>
-       
+
       </ul>
     </div>
   </nav> -->
@@ -20,32 +20,46 @@
       Clini<span class="text-[var(--primary-color)]">Care</span>
     </a>
   </div>
-  <div class="navbar">
-    <div class="nav-items">
-      <a
-        routerLink="/"
-        [ngClass]="{ active: router.url === '/' }"
-        class="nav-link"
+  @if (authService.isLoggedIn()) {
+    <div class="navbar">
+      <div class="nav-items">
+        <a
+          routerLink="/home"
+          routerLinkActive='active'
+          class="nav-link"
         >Dashboard</a
-      >
-      <a
-        routerLink="/patient/4"
-        [ngClass]="{ active: router.url.includes('/patient') }"
-        class="nav-link"
-        >Patients</a
-      >
-      <a
-        routerLink="/schedule"
-        [ngClass]="{ active: router.url.includes('/schedule') }"
-        class="nav-link"
-        >Schedule</a
-      >
-      <a
-        routerLink="/doctor/3"
-        [ngClass]="{ active: router.url.includes('/doctor') }"
-        class="nav-link"
-        >Doctor</a
-      >
+        >
+        @if (authService.isPatient()) {
+          <a
+            [routerLink]="['/patient', authService.getUserId()]"
+            routerLinkActive='active'
+            class="nav-link"
+          >Patients</a
+          >
+          <!--            [ngClass]="{ active: router.url.includes('patient') }"-->
+        }
+        @if (authService.isDoctor()) {
+          <a
+            routerLink="schedule"
+            routerLinkActive='active'
+            class="nav-link"
+          >Schedule</a
+          >
+
+          <a
+            [routerLink]="['/doctor', authService.getUserId()]"
+            routerLinkActive='active'
+            class="nav-link"
+          >Doctor</a
+          >
+        }
+        <button
+          (click)="authService.logout()"
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+        >
+          Logout
+        </button>
+      </div>
     </div>
-  </div>
+  }
 </div>
