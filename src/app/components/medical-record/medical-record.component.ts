@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MedicalRecord } from '../../interfaces/medicalRecord';
 import { MedicalRecordService } from '../../services/medical-record.service';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-medical-record',
@@ -16,15 +17,25 @@ export class MedicalRecordComponent implements OnInit {
 
   constructor(
     private medicalRecordService: MedicalRecordService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
-    const patientId = this.route.snapshot.params['id'];
-    this.medicalRecordService.getMedicalRecordByPatientId(patientId).subscribe(
-      (record) => {
-        this.medicalRecord = record;
-      }
-    );
+    const patientId = this.authService.getCurrentUser()?.id;
+
+    if (patientId !== undefined) {
+      this.medicalRecordService.getMedicalRecordByPatientId(patientId).subscribe(
+        (record) => {
+          this.medicalRecord = record;
+        },
+        (error) => {
+          console.error('Error fetching medical record:', error);
+        }
+      );
+    } else {
+      console.error('Patient ID is undefined');
+      
+    }
   }
 }
