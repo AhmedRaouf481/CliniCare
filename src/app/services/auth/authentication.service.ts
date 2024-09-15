@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable, tap, BehaviorSubject } from "rxjs";
-import { URLs } from "../../shared/api/api-urls";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable, tap, BehaviorSubject} from "rxjs";
+import {URLs} from "../../shared/api/api-urls";
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {AuthResponse} from "../../interfaces/AuthResponse";
 import {Role} from "../../interfaces/Role";
 import {Router} from "@angular/router";
-
 
 
 @Injectable({
@@ -26,8 +25,14 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  register(user: any): Observable<any> {
-    return this._httpClient.post(`${this.register_url}`, user);
+  register(user: any): Observable<AuthResponse> {
+    return this._httpClient.post<AuthResponse>(`${this.register_url}`, user).pipe(
+      tap((response: AuthResponse) => {
+        if (response && response.token) {
+          this.setSession(response);
+        }
+      })
+    );
   }
 
   login(credentials: { email: string, password: string }): Observable<AuthResponse> {
@@ -83,13 +88,11 @@ export class AuthenticationService {
     return currentUser ? currentUser.id : null;
   }
 
-  public isDoctor(): boolean
-  {
+  public isDoctor(): boolean {
     return this.getRoles().some(role => role.name === 'DOCTOR');
   }
 
-  public isPatient(): boolean
-  {
+  public isPatient(): boolean {
     return this.getRoles().some(role => role.name === 'PATIENT');
   }
 

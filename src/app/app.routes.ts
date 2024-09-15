@@ -39,14 +39,14 @@ export const routes: Routes = [
 
   },
   {
-    path: "doctor/:id",
+    path: "doctor/profile",
     component: DoctorComponent,
     title: "Doctor",
     canActivate: [activeUserGuard]
 
   },
   {
-    path: "doctor/edit/:id",
+    path: "doctor/edit/profile",
     component: DoctorEditComponent,
     title: "Doctor Edit",
     canActivate: [activeUserGuard]

@@ -189,6 +189,12 @@
           </a>
         </p>
       </div>
+      @if (errorMessage) {
+        <div class="mt-6">
+          <strong class="font-bold mx-1.5 text-red-800">Error!</strong>
+          <span class="block sm:inline">{{ errorMessage }}</span>
+        </div>
+      }
     </div>
   </div>
 </div>
