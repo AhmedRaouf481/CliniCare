@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MultiSelectFieldComponent } from '../../shared/components/multi-select-field/multi-select-field.component';
 import {
   FormBuilder,
   FormControl,
@@ -10,16 +9,28 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { autocompleteObjectValidator } from '../../shared/util/autocompeleteObjectValidator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { ClinicService } from '../../services/clinic.service';
-import { DoctorService } from '../../services/doctor/doctor.service';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { SlotService } from '../../services/slot.service';
-import { Slot } from '../../interfaces/slot.interface';
 import { SlotCardComponent } from './slot-card/slot-card.component';
+import { Slot } from '../../../interfaces/slot.interface';
+import { AppointmentService } from '../../../services/appointment.service';
+import { ClinicService } from '../../../services/clinic.service';
+import { DoctorService } from '../../../services/doctor/doctor.service';
+import { SlotService } from '../../../services/slot.service';
+import { MultiSelectFieldComponent } from '../../../shared/components/multi-select-field/multi-select-field.component';
+import { autocompleteObjectValidator } from '../../../shared/util/autocompeleteObjectValidator';
+
+
+type SerchParams
+  ={
+    doctorId?: number;
+    locationId?: number;
+    clinicId?: number;
+    weekDay?: string;
+  }
+
 
 @Component({
   selector: 'app-book-appt',
@@ -33,14 +44,14 @@ import { SlotCardComponent } from './slot-card/slot-card.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-appt.component.html',
-  styleUrl: './book-appt.component.css'
+  styleUrl: './book-appt.component.css',
 })
 export class BookApptComponent implements OnInit, OnDestroy {
-  slots:Slot[] = [];
+  slots: Slot[] = [];
   doctorOptions: any[] = [];
   clinicOptions: any[] = [];
   locationOptions: any[] = [];
@@ -56,19 +67,20 @@ export class BookApptComponent implements OnInit, OnDestroy {
     private _doctorService: DoctorService,
     private _clinicService: ClinicService,
     private _slotService: SlotService,
+    private _apptService: AppointmentService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.initSerachForm();
-    this.fetchSlots()
+    this.fetchSlots();
     this.fetchDoctors();
     this.initializeLocationChange();
     this.fetchClinics();
     this.searchSlots();
-    this.handleClinicChanges()
-    this.handleDoctorChanges()
+    this.handleClinicChanges();
+    this.handleDoctorChanges();
   }
 
   private initSerachForm(): void {
@@ -80,39 +92,45 @@ export class BookApptComponent implements OnInit, OnDestroy {
     });
   }
   private handleDoctorChanges(): void {
-    const sub = this.searchForm.get('doctor')?.valueChanges.subscribe((doctor) => {
-      if (doctor) {
-        // Filter clinics based on the selected doctor's ID
-        const filteredClinics = this.clinicOptions.filter(clinic =>
-          clinic.doctors.find((doctorClinic: any) => doctorClinic.id === doctor.id)
-        );
-  
-        // Update clinicOptions to only show the filtered clinics
-        this.clinicOptions = filteredClinics;
-      } else {
-        // If no doctor is selected, reset the clinic options
-        this.fetchClinics(); // Re-fetch all clinics or restore original list
-      }
-     
-    });
-    if (sub) { 
+    const sub = this.searchForm
+      .get('doctor')
+      ?.valueChanges.subscribe((doctor) => {
+        if (doctor) {
+          // Filter clinics based on the selected doctor's ID
+          const filteredClinics = this.clinicOptions.filter((clinic) =>
+            clinic.doctors.find(
+              (doctorClinic: any) => doctorClinic.id === doctor.id
+            )
+          );
+
+          // Update clinicOptions to only show the filtered clinics
+          this.clinicOptions = filteredClinics;
+        } else {
+          // If no doctor is selected, reset the clinic options
+          this.fetchClinics(); // Re-fetch all clinics or restore original list
+        }
+      });
+    if (sub) {
       this.subs.push(sub);
     }
   }
   private handleClinicChanges(): void {
-    const sub = this.searchForm.get('clinic')?.valueChanges.subscribe((clinic) => {
-      if (clinic) {
-        const filteredDoctors = this.doctorOptions.filter(doctor =>
-          doctor.doctorClinics.find((doctorClinic: any) => doctorClinic.id === clinic.id)
-        );
-  
-        this.doctorOptions = filteredDoctors;
-      } else {
-        this.fetchDoctors(); 
-      }
-     
-    });
-    if (sub) { 
+    const sub = this.searchForm
+      .get('clinic')
+      ?.valueChanges.subscribe((clinic) => {
+        if (clinic) {
+          const filteredDoctors = this.doctorOptions.filter((doctor) =>
+            doctor.doctorClinics.find(
+              (doctorClinic: any) => doctorClinic.id === clinic.id
+            )
+          );
+
+          this.doctorOptions = filteredDoctors;
+        } else {
+          this.fetchDoctors();
+        }
+      });
+    if (sub) {
       this.subs.push(sub);
     }
   }
@@ -120,53 +138,44 @@ export class BookApptComponent implements OnInit, OnDestroy {
   private fetchDoctors(): void {
     this._doctorService.getAllDoctors().subscribe({
       next: (data) => {
-        this.doctorOptions = data
+        this.doctorOptions = data;
         console.log(data);
-        
       },
       error: (err) => console.error('Error fetching clinics:', err),
     });
   }
-  private fetchSlots(): void {
-    this._slotService.getAllSlots().subscribe({
+  private fetchSlots(searchParams?: SerchParams): void {
+    const sub = this._slotService.getAllSlots(searchParams).subscribe({
       next: (data) => {
-        this.slots = data
+        this.slots = data;
         console.log(data);
-        
       },
       error: (err) => console.error('Error fetching clinics:', err),
     });
+    this.subs.push(sub);
   }
   private searchSlots(): void {
-    let searchParams:{doctorId?:number,locationId?:number,clinicId?:number,weekDay?:string} ={}
-    this.searchForm.valueChanges.subscribe({
-      next:(value)=>{
-        if(value.doctor){
-          console.log(value.doctor);
-          
-          searchParams['doctorId'] = value.doctor.id
+    const sub = this.searchForm.valueChanges.subscribe({
+      next: (value) => {
+        let searchParams: SerchParams = {};
+        if (value.doctor) {
+          searchParams['doctorId'] = value.doctor.id;
         }
-        if(value.clinic){
-          searchParams['clinicId'] = value.clinic.id
+        if (value.clinic) {
+          searchParams['clinicId'] = value.clinic.id;
         }
-        if(value.location){
-          searchParams['locationId'] = value.location.id
+        if (value.location) {
+          searchParams['locationId'] = value.location.id;
         }
         // if(value.weekDay){
         //   searchParams['locationId'] = value.location.id
         // }
         console.log(searchParams);
-        
 
-        this._slotService.getAllSlots(searchParams).subscribe({
-          next: (data) => {
-            this.slots = data;
-            console.log(data);
-          },
-          error: (err) => console.error('Error fetching slots:', err),
-        });
+        this.fetchSlots(searchParams);
       },
-    })
+    });
+    this.subs.push(sub);
   }
 
   private initializeLocationChange(): void {
@@ -195,10 +204,14 @@ export class BookApptComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.clinicOptions = data;
         console.log(data);
-
       },
       error: (err) => console.error('Error fetching clinics:', err),
     });
+  }
+  resetFilters() {
+    this.searchForm.reset();
+    const params = {};
+    this.fetchSlots(params);
   }
 
   // Unsubscribe from all subscriptions when component is destroyed

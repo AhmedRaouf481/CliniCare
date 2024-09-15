@@ -5,8 +5,8 @@ import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.componen
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { InvoiceCreateComponent } from './components/invoice-create/invoice-create.component';
 import { InvoiceDisplayComponent } from './components/invoice-display/invoice-display.component';
-import { AppointmentsComponent } from './components/appointments/appointments.component';
-import { BookApptComponent } from './components/book-appt/book-appt.component';
+import { AppointmentListComponent } from './components/appointment/appointment-list/appointment-list.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
 
 export const routes: Routes = [
   {
@@ -16,8 +16,10 @@ export const routes: Routes = [
   },
   {
     path: 'appointment',
-    component: BookApptComponent,
-    title: 'Appointments'
+    component: AppointmentComponent,
+    title: 'Appointments',
+    loadChildren: () => import('./components/appointment/appointment.routes').then(m => m.routes)
+
   },
   {
     path: 'patient/:id',

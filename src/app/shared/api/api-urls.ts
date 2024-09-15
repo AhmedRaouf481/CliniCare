@@ -8,4 +8,7 @@ export const URLs = {
   doctorClinics: (doctorId: number) => `/clinics/doctor/${doctorId}`,
   clinic: '/clinics',
   location: '/locations',
+  appointment: '/appointment',
+  apptBySlot: (slotId: number) => `/appointment/slot/${slotId}`,
+  apptTypes: '/appointment/types',
 };
