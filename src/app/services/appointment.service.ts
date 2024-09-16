@@ -24,6 +24,10 @@ export class AppointmentService {
     return this._httpclient.get(`${URLs.ApiBaseUrl+ URLs.myAppointment}`);
   }
 
+  cancelAppt(apptId:number):Observable<any>{
+    return this._httpclient.put(`${URLs.ApiBaseUrl+ URLs.appointmentStatus(apptId)}`,{statusId:3});
+  }
+
   getApptTypes():Observable<any>{
     return this._httpclient.get(`${URLs.ApiBaseUrl+ URLs.apptTypes}`);
   }

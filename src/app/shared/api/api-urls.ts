@@ -12,6 +12,7 @@ export const URLs = {
   clinic: '/clinics',
   location: '/locations',
   appointment: '/appointment',
+  appointmentStatus:(apptId: number) => `/appointment/status/${apptId}` ,
   myAppointment: '/appointment/me',
   apptBySlot: (slotId: number) => `/appointment/slot/${slotId}`,
   apptTypes: '/appointment/types',
