@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URLs } from '../shared/api/api-urls';
 import { Observable } from 'rxjs';
 import { SlotRequestInterface, Slot } from '../interfaces/slot.interface';
+import { cleanParams } from '../shared/util/cleanObject';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,30 @@ export class SlotService {
     );
   }
 
-  getAllSlots(): Observable<Slot[]> {
-    return this._httpclient.get<Slot[]>(URLs.ApiBaseUrl + URLs.slot);
+  getAllSlots(
+    params?:
+      | HttpParams
+      | {
+          [param: string]:
+            | string
+            | number
+            | boolean
+            | ReadonlyArray<string | number | boolean>;
+        }
+  ): Observable<Slot[]> {
+    if (params) {
+      // Clean the params by removing undefined values
+      params = cleanParams(params);
+    }
+    return this._httpclient.get<Slot[]>(URLs.ApiBaseUrl + URLs.slot, {
+      params,
+    });
+  }
+
+  getMySlots(): Observable<Slot[]> {
+    return this._httpclient.get<Slot[]>(
+      URLs.ApiBaseUrl + URLs.mySlots
+    );
   }
 
   getSlotByDoctorId(doctorId: number): Observable<Slot[]> {
@@ -50,7 +73,7 @@ export class SlotService {
       let createdSlots: { startTime: string; day: string }[] = [];
 
       // Fetch existing slots for the doctor
-      this.getSlotByDoctorId(doctorId).subscribe({
+      const sub = this.getSlotByDoctorId(doctorId).subscribe({
         next: (data) => {
           createdSlots = data.map((slot) => ({
             startTime: slot.startTime,
@@ -70,7 +93,7 @@ export class SlotService {
 
             // If the time slot isn't already in created slots, add it
             if (
-             !createdSlots.find((slot) => {
+              !createdSlots.find((slot) => {
                 return slot.startTime === startTime && slot.day === day;
               })
             ) {
@@ -87,6 +110,9 @@ export class SlotService {
           console.log('Error fetching slots:', err.message);
           reject(err);
         },
+        complete:()=>{
+          sub.unsubscribe()
+        }
       });
     });
   }

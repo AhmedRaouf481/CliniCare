@@ -1,81 +1,82 @@
-<!-- src/app/components/navbar/navbar.component.html -->
-<!-- <nav class="bg-blue-600 p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <a class="text-white text-lg font-bold" routerLink="/">CliniCare</a>
-      <ul class="flex space-x-4">
-        <li>
-          <a routerLink="/patient/11" class="text-white hover:text-blue-300">Profile</a>
-        </li>
-        <li>
-          <a routerLink="/dashboard" class="text-white hover:text-blue-300">Dashboard</a>
-        </li>
-
-      </ul>
-    </div>
-  </nav> -->
-
-<div class="w-full flex items-center justify-between px-16 mt-8 mb-4">
-  <div class="logo bg-white py-[10px] px-[50px] rounded-[20rem]">
+<div class="w-full flex items-center justify-between px-16 mt-8 mb-8">
+  <div class="logo bg-white py-[10px] px-[40px] rounded-[20rem]">
     <a routerLink="/" class="text-2xl">
       Clini<span class="text-[var(--primary-color)]">Care</span>
     </a>
   </div>
-  @if (authService.isLoggedIn()) {
-    <div class="navbar">
-      <div class="nav-items">
-        <a
-          routerLink="/home"
-          routerLinkActive='active'
-          class="nav-link"
+  <div class="navbar">
+    <div class="nav-items">
+      <a routerLink="/home" [routerLinkActive]="'active'" class="nav-link"
         >Home</a
-        >
-        @if (authService.isPatient()) {
-          <a
-            [routerLink]="['/patient/profile']"
-            routerLinkActive='active'
-            class="nav-link"
-          >Patient Profile</a
-          >
-        }
-        @if (authService.isDoctor()) {
-          <a
-            routerLink="schedule"
-            routerLinkActive='active'
-            class="nav-link"
-          >Schedule</a
-          >
-
-          <a
-            [routerLink]="['/doctor/profile']"
-            routerLinkActive='active'
-            class="nav-link"
-          >Doctor Profile</a
-          >
-        }
-        <button
-          (click)="logout()"
-          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  } @else {
-    <div class="navbar">
-      <a
-        routerLink="/login"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out mr-2"
       >
-        Login
-      </a>
       <a
-        routerLink="/register"
-        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+        [routerLink]="'/appointment'"
+        [routerLinkActive]="'active'"
+        class="nav-link"
+        >Appointments</a
       >
-        Register
-      </a>
+      @if (currentRole == 'patient') {
+      <!-- <a
+        [routerLink]="['/patient/profile']"
+        routerLinkActive="active"
+        class="nav-link"
+        >Patient Profile</a
+      > -->
+      } @if (currentRole == 'doctor') {
+      <a routerLink="schedule" [routerLinkActive]="'active'" class="nav-link"
+        >Schedule</a
+      >
+      }
+      <a
+        [routerLink]="[currentRole + '/profile']"
+        [routerLinkActive]="'active'"
+        class="nav-link"
+        >Profile</a
+      >
     </div>
-  }
+  </div>
 
+  <div class="profile-section">
+    <div class="example-button-container">
+      <button
+        mat-button
+        class="mybtn"
+        style="
+          color: var(--dark-color);
+          background-color: white;
+          font-weight: 400;
+          width: fit-content;
+        "
+        [matMenuTriggerFor]="profileMenu"
+      >
+        <mat-icon>account_circle</mat-icon>
+        {{ authService.getName() }}
+      </button>
+      <!-- <a mat-fab extended routerLink=".">
+        <mat-icon>favorite</mat-icon>
+        Link
+      </a> -->
+    </div>
 
+    <mat-menu #profileMenu="matMenu">
+      @if (authService.isDoctor() && authService.isPatient()) {
+      <button mat-menu-item (click)="switchRole('doctor')">
+        <mat-icon
+          fontSet="fa"
+          fontIcon="fa-stethoscope"
+          inline="true"
+        ></mat-icon>
+        <span>Switch to Doctor</span>
+      </button>
+      <button mat-menu-item (click)="switchRole('patient')">
+        <mat-icon>person</mat-icon>
+        <span>Switch to Patient</span>
+      </button>
+      }
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>

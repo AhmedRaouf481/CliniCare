@@ -14,7 +14,6 @@
     <mat-autocomplete
       #auto="matAutocomplete"
       [displayWith]="displayFn.bind(this)"
-      (optionSelected)="onOptionSelected($event)"
     >
       @for (option of filteredOptions | async ; track $index) {
       <mat-option [value]="option">{{ option?.name }}</mat-option>

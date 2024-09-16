@@ -70,10 +70,6 @@ export class MultiSelectFieldComponent implements OnInit, OnChanges {
   displayFn(option: any): string { // ChatGPt
     return option && option.name ? option.name : '';
   }
-  onOptionSelected(event: any) {
-    const selectedOption = event.option.value;
-    console.log('Selected:', selectedOption);
-  }
    // Method to filter the options
    private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();

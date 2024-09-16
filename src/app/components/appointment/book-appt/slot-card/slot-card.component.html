@@ -1,0 +1,39 @@
+
+<mat-card appearance="raised">
+    <mat-card-header>
+      <mat-card-title class="py-2"> {{slot.doctor?.name}}</mat-card-title>
+      <mat-card-subtitle class="py-2"><span class="font-medium  text-[var(--secondary-color)]">Clinic:</span> {{slot.clinicLocation.clinic.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider class="py-4"></mat-divider>
+    <mat-card-content class="py-2">
+    
+              <p><span class="font-  text-[var(--secondary-color)]">Address:</span> {{ slot.clinicLocation.addressLine }}</p>
+              <p><span class="font-  text-[var(--secondary-color)]">City:</span> {{ slot.clinicLocation.city }}</p>
+          
+              <p><span class="font-  text-[var(--secondary-color)]">Day:</span> {{ slot.weekDay | capitalizeFirst }}</p>
+              <p><span class="font-  text-[var(--secondary-color)]">Time:</span> {{ slot.startTime | slotDuration: 30 }}</p>
+        
+      </mat-card-content>
+    <mat-card-actions [align]="'end'">
+      <form [formGroup]="apptForm" class="grid lg:grid-cols-3 sm:grid-cols-1 grid-cols-1 gap-4 w-full px-2 pt-2">
+      <mat-form-field >
+        <mat-label>Type</mat-label>
+        <mat-select  [formControlName]="'type'">
+          @for (type of apptTypes; track $index) {
+            <mat-option [value]="type">{{type.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [formControlName]="'date'">
+        <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="flex justify-end items-center">
+
+        <button mat-stroked-button (click)="submitAppt()" class="w-1/2">Book</button>
+      </div>
+    </form>
+    </mat-card-actions>
+  </mat-card>   

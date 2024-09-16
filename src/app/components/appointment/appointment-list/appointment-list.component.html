@@ -1,0 +1,106 @@
+<div class="container mx-auto mt-6">
+    <!-- Upcoming Section -->
+     <div class="flex items-center justify-between">
+       <h3 class="text-xl font-semibold mb-4">Upcoming</h3>
+
+       @if (currentRole === 'patient') {
+         <button mat-button [routerLink]="['/appointment/book']">
+           Book
+          </button>
+        }
+      </div>
+    @if (upcomingAppointments.length>0) {
+    <mat-card *ngFor="let appointment of upcomingAppointments" class="mb-4 p-4 border border-gray-300 shadow-sm">
+      <div class="flex items-center justify-between">
+        <!-- Doctor Info -->
+        <div class="flex items-start pl-4">
+          <!-- Doctor Image -->
+          
+          <div>
+            <!-- Doctor Name with icon and label -->
+            <h5 class="font-bold text-lg flex items-center">
+              <mat-icon class="mr-1">person</mat-icon>
+              {{ appointment.doctorTitle }} {{ appointment.doctorName }}
+              <span *ngIf="appointment.upcoming" class="ml-2 text-green-500 text-sm">●</span>
+            </h5>
+            
+            <!-- Date and Time -->
+            <div class="flex items-center text-gray-600 pb-2">
+              <mat-icon class="mr-1">event</mat-icon>
+              {{ appointment.date }} - {{ appointment.time }}
+            </div>
+            
+            <!-- Clinic and Location -->
+            <div class="flex items-center text-gray-500 py-2">
+              <mat-icon class="mr-1">location_on</mat-icon>
+              {{ appointment.clinicName }}, {{ appointment.clinicLocation }}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Appointment Actions (Cancel, Edit) -->
+        <div class="text-right">
+  
+          <!-- Buttons: Cancel and Edit -->
+          <div class="flex justify-end">
+            <button mat-button class="text-red-500 border border-red-500 rounded px-4 py-1 mr-2 hover:bg-red-50">
+              Cancel
+            </button>
+            <button mat-button class="text-teal-500 border border-teal-500 rounded px-4 py-1 hover:bg-teal-50">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  
+      
+  }@else {
+    <p class="text-center text-gray-600">No upcoming appointments found.</p>
+  }
+  <!-- Past Section -->
+  <h3 class="text-xl font-semibold mt-6 mb-4">Past</h3>
+  @if (pastAppointments.length>0) {
+    <mat-card *ngFor="let appointment of pastAppointments" class="mb-4 p-4 bg-gray-100 border border-gray-200 shadow-sm">
+      <div class="flex items-center justify-between">
+        <!-- Doctor Info -->
+        <div class="flex items-start pl-4">
+          <!-- Doctor Image -->  
+          <div>
+            <!-- Doctor Name with icon and label -->
+            <h5 class="font-bold text-lg flex items-center">
+              <mat-icon class="mr-1">person</mat-icon>
+              {{ appointment.doctorTitle }} {{ appointment.doctorName }}
+            </h5>
+            
+            <!-- Date and Time -->
+            <div class="flex items-center text-gray-600 p-2">
+              <mat-icon class="mr-1">event</mat-icon>
+              {{ appointment.date }} - {{ appointment.time | slotDuration: 30}}
+            </div>
+            
+            <!-- Clinic and Location -->
+            <div class="flex items-center text-gray-500 p-2">
+              <mat-icon class="mr-1">location_on</mat-icon>
+              {{ appointment.clinicName }}, {{ appointment.clinicLocation }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Appointment Actions (Details) -->
+        <div class="text-right">
+          <!-- Button: Details -->
+          <div class="flex justify-end mt-4">
+            <button mat-button class="text-teal-500 border border-teal-500 rounded px-4 py-1 hover:bg-teal-50">
+              Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+         
+  }@else {
+    <p class="text-center text-gray-600">No past appointments found.</p>
+  }
+  </div>
+  

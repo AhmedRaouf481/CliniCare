@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import {PatientProfileComponent} from './components/patient-profile/patient-profile.component';
 import {DoctorComponent} from "./components/doctor/doctor.component";
 import {DoctorEditComponent} from "./components/doctor-edit/doctor-edit.component";
+import { AppointmentComponent } from './components/appointment/appointment.component';
 import {ScheduleComponent} from './components/schedule/schedule.component';
 import {InvoiceCreateComponent} from './components/invoice-create/invoice-create.component';
 import {InvoiceDisplayComponent} from './components/invoice-display/invoice-display.component';
@@ -30,6 +31,15 @@ export const routes: Routes = [
     component: ScheduleComponent,
     title: 'Doctor Schedule',
     canActivate: [activeUserGuard]
+  },
+  {
+    path: 'appointment',
+    component: AppointmentComponent,
+    title: 'Appointments',
+    loadChildren: () => import('./components/appointment/appointment.routes').then(m => m.routes),
+    canActivate: [activeUserGuard]
+
+
   },
   {
     path: 'patient/:id',
