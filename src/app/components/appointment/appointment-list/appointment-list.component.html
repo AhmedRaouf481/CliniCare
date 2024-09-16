@@ -16,13 +16,13 @@
             </h5>
             
             <!-- Date and Time -->
-            <div class="flex items-center text-gray-600">
+            <div class="flex items-center text-gray-600 pb-2">
               <mat-icon class="mr-1">event</mat-icon>
               {{ appointment.date }} - {{ appointment.time }}
             </div>
             
             <!-- Clinic and Location -->
-            <div class="flex items-center text-gray-500">
+            <div class="flex items-center text-gray-500 py-2">
               <mat-icon class="mr-1">location_on</mat-icon>
               {{ appointment.clinicName }}, {{ appointment.clinicLocation }}
             </div>
@@ -60,13 +60,13 @@
             </h5>
             
             <!-- Date and Time -->
-            <div class="flex items-center text-gray-600">
+            <div class="flex items-center text-gray-600 p-2">
               <mat-icon class="mr-1">event</mat-icon>
-              {{ appointment.date }} - {{ appointment.time }}
+              {{ appointment.date }} - {{ appointment.time | slotDuration: 30}}
             </div>
             
             <!-- Clinic and Location -->
-            <div class="flex items-center text-gray-500">
+            <div class="flex items-center text-gray-500 p-2">
               <mat-icon class="mr-1">location_on</mat-icon>
               {{ appointment.clinicName }}, {{ appointment.clinicLocation }}
             </div>

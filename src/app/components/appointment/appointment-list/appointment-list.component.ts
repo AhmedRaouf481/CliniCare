@@ -1,20 +1,36 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { AppointmentService } from '../../../services/appointment.service';
+import { SlotDurationPipe } from '../../../shared/pipes/slot-duration.pipe';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [MatCardModule, MatIconModule,MatButtonModule,CommonModule,],
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    CommonModule,
+    SlotDurationPipe,
+  ],
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css'],
 })
-export class AppointmentListComponent {
-  upcomingAppointments = [
+export class AppointmentListComponent implements OnInit {
+  /**
+   *
+   */
+  constructor(private _apptService: AppointmentService) {}
+  ngOnInit(): void {
+    this.fetchAppts();
+  }
+  upcomingAppointments = [];
+
+  upcomingAppointmentss = [
     {
-      doctorImage: 'path_to_image.jpg',
       doctorName: 'Magdalena Ignis',
       doctorTitle: 'dr n. med.',
       clinicName: 'Atmeris Medica',
@@ -38,31 +54,38 @@ export class AppointmentListComponent {
       upcoming: true,
     },
   ];
+  pastAppointments = [];
 
-  pastAppointments = [
-    {
-      doctorImage: 'path_to_image_3.jpg',
-      doctorName: 'Eric Molina',
-      doctorTitle: 'dr n. med.',
-      clinicName: 'Medica Nova Green',
-      clinicLocation: 'Zielona 25/6, Kraków',
-      date: '11.08.2022',
-      time: '15:20',
-      rating: 4,
-      comments: 15,
-      upcoming: false,
-    },
-    {
-      doctorImage: 'path_to_image_4.jpg',
-      doctorName: 'Ernest Padill',
-      doctorTitle: 'dr n. med.',
-      clinicName: 'Ecomedic',
-      clinicLocation: 'Jeziorna 2/6, Kraków',
-      date: '08.02.2022',
-      time: '15:20',
-      rating: 3,
-      comments: 8,
-      upcoming: false,
-    },
-  ];
+  fetchAppts() {
+    this._apptService.getMyAppts().subscribe((res) => {
+      const currentDate = new Date();
+      const docAppts = res.doctor
+      const patientAppts = res.patient
+
+      patientAppts.forEach((appt) => {
+        const appointmentDate = new Date(appt.date);
+
+        const appointmentDetails = {
+          doctorName: appt.slot.doctor.name,
+          clinicName: appt.slot.clinicLocation.clinic.name,
+          clinicLocation: `${appt.slot.clinicLocation.addressLine}, ${appt.slot.clinicLocation.city}`,
+          date: appt.date,
+          time: appt.slot.startTime,
+          rating: 4,
+          comments: 305,
+        };
+
+        if (appointmentDate >= currentDate) {
+          // Upcoming appointment
+          this.upcomingAppointments.push(appointmentDetails);
+        } else {
+          // Past appointment
+          this.pastAppointments.push(appointmentDetails);
+        }
+      });
+
+      console.log('Upcoming:', this.upcomingAppointments);
+      console.log('Past:', this.pastAppointments);
+    });
+  }
 }

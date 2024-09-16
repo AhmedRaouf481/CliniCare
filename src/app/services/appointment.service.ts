@@ -20,6 +20,10 @@ export class AppointmentService {
     return this._httpclient.get(`${URLs.ApiBaseUrl+ URLs.appointment}`);
   }
 
+  getMyAppts():Observable<any>{
+    return this._httpclient.get(`${URLs.ApiBaseUrl+ URLs.myAppointment}`);
+  }
+
   getApptTypes():Observable<any>{
     return this._httpclient.get(`${URLs.ApiBaseUrl+ URLs.apptTypes}`);
   }

@@ -9,6 +9,7 @@ export const URLs = {
   clinic: '/clinics',
   location: '/locations',
   appointment: '/appointment',
+  myAppointment: '/appointment/me',
   apptBySlot: (slotId: number) => `/appointment/slot/${slotId}`,
   apptTypes: '/appointment/types',
 };
