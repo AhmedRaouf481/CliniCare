@@ -28,6 +28,7 @@ import { Subscription } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { autocompleteObjectValidator } from '../../../shared/util/autocompeleteObjectValidator';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-slot',
@@ -67,12 +68,13 @@ export class SlotComponent implements OnInit, OnDestroy {
   constructor(
     private _clinicService: ClinicService,
     private _slotService: SlotService,
+    private _authService: AuthenticationService,
     private fb: FormBuilder,
     private slotDuration: SlotDurationPipe,
     private cdr: ChangeDetectorRef,
     private snackBar: MatSnackBar
   ) {
-    this.doctorId = JSON.parse(localStorage.getItem('user') ?? '')?.id;
+    this.doctorId = _authService.getUserId();
   }
 
   ngOnInit(): void {

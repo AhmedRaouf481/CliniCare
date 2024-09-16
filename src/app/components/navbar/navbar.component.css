@@ -29,50 +29,12 @@
   height: 40px;
 }
 
-.profile-section {
+.example-button-container {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  justify-content: center;
+  width: 120px;
+  color: var(--secondary-color) !important;
 }
-
-.notifications {
-  position: relative;
-}
-
-.bell-icon {
-  font-size: 24px;
-  color: #333;
-}
-
-.badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 3px 7px;
-  font-size: 12px;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.profile img {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-}
-
-.profile-name {
-  font-weight: bold;
-  color: #333;
-}
-
-.profile-role {
-  font-size: 12px;
-  color: #888;
+.mybtn{
+  transform: scale(1.2);
 }

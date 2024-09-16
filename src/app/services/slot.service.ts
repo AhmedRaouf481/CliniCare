@@ -51,6 +51,12 @@ export class SlotService {
     });
   }
 
+  getMySlots(): Observable<Slot[]> {
+    return this._httpclient.get<Slot[]>(
+      URLs.ApiBaseUrl + URLs.mySlots
+    );
+  }
+
   getSlotByDoctorId(doctorId: number): Observable<Slot[]> {
     return this._httpclient.get<Slot[]>(
       URLs.ApiBaseUrl + URLs.doctorSlots(doctorId)

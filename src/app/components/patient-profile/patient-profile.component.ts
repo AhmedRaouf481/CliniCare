@@ -43,6 +43,7 @@ export class PatientProfileComponent implements OnInit {
 }
 
   savePatientDetails(): void {
+    Object.assign(this.patient,this.editForm.value)
     if (this.patient) {
       console.log(this.patient);
       this.patientService.updatePatientDetails(this.patient).subscribe(() => {

@@ -19,6 +19,7 @@ import { Slot } from '../../../../interfaces/slot.interface';
 import { AppointmentService } from '../../../../services/appointment.service';
 import { CapitalizeFirstPipe } from '../../../../shared/pipes/capitalize-first.pipe';
 import { SlotDurationPipe } from '../../../../shared/pipes/slot-duration.pipe';
+import { AuthenticationService } from '../../../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-slot-card',
@@ -45,12 +46,16 @@ export class SlotCardComponent implements OnInit {
   apptForm!: FormGroup;
   appts: any[] = [];
   apptTypes: any[] = [];
+  patientId:number
 
   constructor(
     private _apptService: AppointmentService,
+    private _authService: AuthenticationService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+  ) {
+    this.patientId = _authService.getUserId()
+  }
   ngOnInit(): void {
     this.initApptForm();
     this.fetchApptsBySlotId(this.slot.id);
@@ -128,7 +133,7 @@ export class SlotCardComponent implements OnInit {
     }
     const appt = {
       patient: {
-        id: 4,
+        id: this.patientId,
       },
       slot: {
         id: this.slot.id,

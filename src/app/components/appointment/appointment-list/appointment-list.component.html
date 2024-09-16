@@ -1,6 +1,15 @@
 <div class="container mx-auto mt-6">
     <!-- Upcoming Section -->
-    <h3 class="text-xl font-semibold mb-4">Upcoming</h3>
+     <div class="flex items-center justify-between">
+       <h3 class="text-xl font-semibold mb-4">Upcoming</h3>
+
+       @if (currentRole === 'patient') {
+         <button mat-button [routerLink]="['/appointment/book']">
+           Book
+          </button>
+        }
+      </div>
+    @if (upcomingAppointments.length>0) {
     <mat-card *ngFor="let appointment of upcomingAppointments" class="mb-4 p-4 border border-gray-300 shadow-sm">
       <div class="flex items-center justify-between">
         <!-- Doctor Info -->
@@ -45,8 +54,13 @@
       </div>
     </mat-card>
   
-    <!-- Past Section -->
-    <h3 class="text-xl font-semibold mt-6 mb-4">Past</h3>
+      
+  }@else {
+    <p class="text-center text-gray-600">No upcoming appointments found.</p>
+  }
+  <!-- Past Section -->
+  <h3 class="text-xl font-semibold mt-6 mb-4">Past</h3>
+  @if (pastAppointments.length>0) {
     <mat-card *ngFor="let appointment of pastAppointments" class="mb-4 p-4 bg-gray-100 border border-gray-200 shadow-sm">
       <div class="flex items-center justify-between">
         <!-- Doctor Info -->
@@ -84,5 +98,9 @@
         </div>
       </div>
     </mat-card>
+         
+  }@else {
+    <p class="text-center text-gray-600">No past appointments found.</p>
+  }
   </div>
   

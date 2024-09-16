@@ -5,6 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AppointmentService } from '../../../services/appointment.service';
 import { SlotDurationPipe } from '../../../shared/pipes/slot-duration.pipe';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-list',
@@ -15,6 +17,7 @@ import { SlotDurationPipe } from '../../../shared/pipes/slot-duration.pipe';
     MatButtonModule,
     CommonModule,
     SlotDurationPipe,
+    RouterLink
   ],
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css'],
@@ -23,7 +26,13 @@ export class AppointmentListComponent implements OnInit {
   /**
    *
    */
-  constructor(private _apptService: AppointmentService) {}
+  currentRole: string;
+  constructor(
+    private _apptService: AppointmentService,
+    private authService: AuthenticationService
+  ) {
+    this.currentRole = localStorage.getItem('currentRole');
+  }
   ngOnInit(): void {
     this.fetchAppts();
   }
@@ -59,30 +68,54 @@ export class AppointmentListComponent implements OnInit {
   fetchAppts() {
     this._apptService.getMyAppts().subscribe((res) => {
       const currentDate = new Date();
-      const docAppts = res.doctor
-      const patientAppts = res.patient
+      const docAppts = res.doctor;
+      const patientAppts = res.patient;
+      if (this.currentRole === 'doctor') {
+        docAppts.forEach((appt) => {
+          const appointmentDate = new Date(appt.date);
 
-      patientAppts.forEach((appt) => {
-        const appointmentDate = new Date(appt.date);
+          const appointmentDetails = {
+            doctorName: appt.doctorName,
+            clinicName: appt.clinicName,
+            clinicLocation: `${appt.locationAddressLine}, ${appt.locationCity}`,
+            date: appt.date,
+            time: appt.slotStartTime,
+            rating: 4,  // Assuming this is static or calculated elsewhere
+            comments: 305  // Assuming this is static or calculated elsewhere
+          };
+          
 
-        const appointmentDetails = {
-          doctorName: appt.slot.doctor.name,
-          clinicName: appt.slot.clinicLocation.clinic.name,
-          clinicLocation: `${appt.slot.clinicLocation.addressLine}, ${appt.slot.clinicLocation.city}`,
-          date: appt.date,
-          time: appt.slot.startTime,
-          rating: 4,
-          comments: 305,
-        };
+          if (appointmentDate >= currentDate) {
+            // Upcoming appointment
+            this.upcomingAppointments.push(appointmentDetails);
+          } else {
+            // Past appointment
+            this.pastAppointments.push(appointmentDetails);
+          }
+        });
+      } else  {
+        patientAppts.forEach((appt) => {
+          const appointmentDate = new Date(appt.date);
 
-        if (appointmentDate >= currentDate) {
-          // Upcoming appointment
-          this.upcomingAppointments.push(appointmentDetails);
-        } else {
-          // Past appointment
-          this.pastAppointments.push(appointmentDetails);
-        }
-      });
+          const appointmentDetails = {
+            doctorName: appt.doctorName,
+            clinicName: appt.clinicName,
+            clinicLocation: `${appt.locationAddressLine}, ${appt.locationCity}`,
+            date: appt.date,
+            time: appt.slotStartTime,
+            rating: 4,  // Assuming this is static or calculated elsewhere
+            comments: 305  // Assuming this is static or calculated elsewhere
+          };
+
+          if (appointmentDate >= currentDate) {
+            // Upcoming appointment
+            this.upcomingAppointments.push(appointmentDetails);
+          } else {
+            // Past appointment
+            this.pastAppointments.push(appointmentDetails);
+          }
+        });
+      }
 
       console.log('Upcoming:', this.upcomingAppointments);
       console.log('Past:', this.pastAppointments);
