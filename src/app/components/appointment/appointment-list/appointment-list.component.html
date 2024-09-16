@@ -18,11 +18,11 @@
           
           <div>
             <!-- Doctor Name with icon and label -->
-            <h5 class="font-bold text-lg flex items-center">
+            <h6 class="font-bold text-lg flex items-center">
               <mat-icon class="mr-1">person</mat-icon>
-              {{ appointment.doctorTitle }} {{ appointment.doctorName }}
+              {{ appointment.personTitle }} {{ appointment.personName }}
               <span *ngIf="appointment.upcoming" class="ml-2 text-green-500 text-sm">●</span>
-            </h5>
+            </h6>
             
             <!-- Date and Time -->
             <div class="flex items-center text-gray-600 pb-2">
@@ -68,10 +68,10 @@
           <!-- Doctor Image -->  
           <div>
             <!-- Doctor Name with icon and label -->
-            <h5 class="font-bold text-lg flex items-center">
+            <h6 class="font-bold text-lg flex items-center">
               <mat-icon class="mr-1">person</mat-icon>
               {{ appointment.doctorTitle }} {{ appointment.doctorName }}
-            </h5>
+            </h6>
             
             <!-- Date and Time -->
             <div class="flex items-center text-gray-600 p-2">

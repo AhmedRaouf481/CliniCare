@@ -23,9 +23,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./appointment-list.component.css'],
 })
 export class AppointmentListComponent implements OnInit {
-  /**
-   *
-   */
+  
   currentRole: string;
   constructor(
     private _apptService: AppointmentService,
@@ -37,32 +35,6 @@ export class AppointmentListComponent implements OnInit {
     this.fetchAppts();
   }
   upcomingAppointments = [];
-
-  upcomingAppointmentss = [
-    {
-      doctorName: 'Magdalena Ignis',
-      doctorTitle: 'dr n. med.',
-      clinicName: 'Atmeris Medica',
-      clinicLocation: 'Wawelska 25/6, Kraków',
-      date: '15.08.2023',
-      time: '10:00',
-      rating: 4,
-      comments: 305,
-      upcoming: true,
-    },
-    {
-      doctorImage: 'path_to_image_2.jpg',
-      doctorName: 'Stefan Tracki',
-      doctorTitle: 'lek.',
-      clinicName: 'Mediceu',
-      clinicLocation: 'Sarego 22, Kraków',
-      date: '20.08.2023',
-      time: '15:20',
-      rating: 4,
-      comments: 12,
-      upcoming: true,
-    },
-  ];
   pastAppointments = [];
 
   fetchAppts() {
@@ -75,7 +47,8 @@ export class AppointmentListComponent implements OnInit {
           const appointmentDate = new Date(appt.date);
 
           const appointmentDetails = {
-            doctorName: appt.doctorName,
+            personTitle:"Patient name: ",
+            personName: appt.patientName,
             clinicName: appt.clinicName,
             clinicLocation: `${appt.locationAddressLine}, ${appt.locationCity}`,
             date: appt.date,
@@ -98,7 +71,8 @@ export class AppointmentListComponent implements OnInit {
           const appointmentDate = new Date(appt.date);
 
           const appointmentDetails = {
-            doctorName: appt.doctorName,
+            personTitle:"Doctor name: ",
+            personName: appt.doctorName,
             clinicName: appt.clinicName,
             clinicLocation: `${appt.locationAddressLine}, ${appt.locationCity}`,
             date: appt.date,
