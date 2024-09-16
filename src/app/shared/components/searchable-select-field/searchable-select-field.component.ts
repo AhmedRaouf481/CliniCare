@@ -20,8 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-multi-select-field',
+  selector: 'app-searchable-select-field',
   standalone: true,
+  templateUrl: './searchable-select-field.component.html',
+  styleUrl: './searchable-select-field.component.css',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -31,10 +33,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     AsyncPipe,
   ],
-  templateUrl: './multi-select-field.component.html',
-  styleUrls: ['./multi-select-field.component.css'],
 })
-export class MultiSelectFieldComponent implements OnInit, OnChanges {
+export class SearchableSelectFieldComponent implements OnInit, OnChanges {
   @Input() form!: FormGroup;
   @Input() controlName!: string;
   @Input() options: any[] = [];

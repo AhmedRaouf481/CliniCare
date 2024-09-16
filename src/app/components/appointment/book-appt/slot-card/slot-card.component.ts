@@ -17,8 +17,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Slot } from '../../../../interfaces/slot.interface';
 import { AppointmentService } from '../../../../services/appointment.service';
-import { CapitalizeFirstPipe } from '../../../../shared/pipes/capitalize-first.pipe';
-import { SlotDurationPipe } from '../../../../shared/pipes/slot-duration.pipe';
+import { CapitalizeFirstPipe } from '../../../../pipes/capitalize-first.pipe';
+import { SlotDurationPipe } from '../../../../pipes/slot-duration.pipe';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 
 @Component({

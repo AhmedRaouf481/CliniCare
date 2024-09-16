@@ -18,17 +18,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MultiSelectFieldComponent } from '../../../shared/components/multi-select-field/multi-select-field.component';
+import { SearchableSelectFieldComponent } from '../../../shared/components/searchable-select-field/searchable-select-field.component';
 import { ClinicService } from '../../../services/clinic.service';
 import { Clinic } from '../../../interfaces/clinic';
 import { SlotService } from '../../../services/slot.service';
-import { SlotDurationPipe } from '../../../shared/pipes/slot-duration.pipe';
-import { ListComponent } from '../../../shared/components/list/list.component';
+import { SlotDurationPipe } from '../../../pipes/slot-duration.pipe';
 import { Subscription } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { autocompleteObjectValidator } from '../../../shared/util/autocompeleteObjectValidator';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-slot',
@@ -39,7 +39,7 @@ import { AuthenticationService } from '../../../services/auth/authentication.ser
     MatExpansionModule,
     ReactiveFormsModule,
     FormsModule,
-    MultiSelectFieldComponent,
+    SearchableSelectFieldComponent,
     ListComponent,
     MatFormFieldModule,
     MatSelectModule,

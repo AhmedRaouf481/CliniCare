@@ -6,7 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { SlotDurationPipe } from '../../../../shared/pipes/slot-duration.pipe';
+import { SlotDurationPipe } from '../../../../pipes/slot-duration.pipe';
 
 @Component({
   selector: 'app-appointment-card',

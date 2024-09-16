@@ -19,7 +19,7 @@ import { AppointmentService } from '../../../services/appointment.service';
 import { ClinicService } from '../../../services/clinic.service';
 import { DoctorService } from '../../../services/doctor/doctor.service';
 import { SlotService } from '../../../services/slot.service';
-import { MultiSelectFieldComponent } from '../../../shared/components/multi-select-field/multi-select-field.component';
+import { SearchableSelectFieldComponent } from '../../../shared/components/searchable-select-field/searchable-select-field.component';
 import { autocompleteObjectValidator } from '../../../shared/util/autocompeleteObjectValidator';
 
 
@@ -40,7 +40,7 @@ type SerchParams
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MultiSelectFieldComponent,
+    SearchableSelectFieldComponent,
     ReactiveFormsModule,
     MatDatepickerModule,
     FormsModule,

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AppointmentService } from '../../../services/appointment.service';
-import { SlotDurationPipe } from '../../../shared/pipes/slot-duration.pipe';
+import { SlotDurationPipe } from '../../../pipes/slot-duration.pipe';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
