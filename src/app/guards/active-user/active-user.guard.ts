@@ -8,26 +8,12 @@ export const activeUserGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthenticationService);
 
 
-  if (!authService.getUserId())
-  {
-    router.navigate(['/login']);
-    return false;
-  }
-
-  if(route.routeConfig?.path?.startsWith('doctor') && !authService.isDoctor())
-  {
+  if (route.routeConfig?.path?.startsWith('doctor') && !authService.isDoctor()) {
     router.navigate(['/forbidden']);
     return false;
   }
 
-  if(route.routeConfig?.path?.startsWith('patient') && !authService.isPatient())
-  {
-    router.navigate(['/forbidden']);
-    return false;
-  }
-
-  if(route.paramMap.get('id') &&  authService.getUserId() != parseInt(route.paramMap.get('id') || '', 10))
-  {
+  if (route.routeConfig?.path?.startsWith('patient') && !authService.isPatient()) {
     router.navigate(['/forbidden']);
     return false;
   }

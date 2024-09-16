@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Doctor} from "../../interfaces/doctor";
 import {DoctorService} from "../../services/doctor/doctor.service";
-import { RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {Subscription} from "rxjs";
 import {NgForOf, NgIf} from "@angular/common";
 import {AuthenticationService} from "../../services/auth/authentication.service";
@@ -21,17 +21,15 @@ export class DoctorComponent implements OnInit, OnDestroy {
   doctor!: Doctor;
   subs: Subscription[] = [];
 
-  constructor(private _doctorService: DoctorService,
-              private _auth: AuthenticationService) {
+  constructor(private _doctorService: DoctorService) {
   }
 
   ngOnInit(): void {
-      console.log(this._auth.getUserId())
-      this.loadDoctor(<number>this._auth.getUserId());
+    this.loadDoctor();
   }
 
-  loadDoctor(doctor_id: number): void {
-    const sub = this._doctorService.getDoctor(doctor_id).subscribe({
+  loadDoctor(): void {
+    const sub = this._doctorService.getDoctor().subscribe({
       next: (res: Doctor) => {
         this.doctor = res;
         console.log(res);

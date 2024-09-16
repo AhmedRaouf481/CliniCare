@@ -34,7 +34,7 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.loadDoctor(<number>this._auth.getUserId());
+    this.loadDoctor();
     this.createEditForm();
 
   }
@@ -103,8 +103,8 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
-  loadDoctor(doctor_id: number): void {
-    const sub = this._doctorService.getDoctor(doctor_id).subscribe({
+  loadDoctor(): void {
+    const sub = this._doctorService.getDoctor().subscribe({
       next: (res: Doctor) => {
         this.doctor = res;
         this.editForm.patchValue({
