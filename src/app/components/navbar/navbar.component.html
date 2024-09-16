@@ -59,7 +59,8 @@
     </div>
 
     <mat-menu #profileMenu="matMenu">
-      @if (authService.isDoctor() && authService.isPatient()) {
+      @if (authService.isDoctor() && authService.isPatient()) { @if (currentRole
+      == 'patient') {
       <button mat-menu-item (click)="switchRole('doctor')">
         <mat-icon
           fontSet="fa"
@@ -68,11 +69,12 @@
         ></mat-icon>
         <span>Switch to Doctor</span>
       </button>
+      }@else {
       <button mat-menu-item (click)="switchRole('patient')">
         <mat-icon>person</mat-icon>
         <span>Switch to Patient</span>
       </button>
-      }
+      } }
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
