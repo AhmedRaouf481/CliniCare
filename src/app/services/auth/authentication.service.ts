@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable, tap, BehaviorSubject } from "rxjs";
-import { URLs } from "../../shared/api/api-urls";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable, tap, BehaviorSubject, catchError, finalize, switchMap, of} from "rxjs";
+import {URLs} from "../../shared/api/api-urls";
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {AuthResponse} from "../../interfaces/AuthResponse";
 import {Role} from "../../interfaces/Role";
 import {Router} from "@angular/router";
-
 
 
 @Injectable({
@@ -18,6 +17,7 @@ export class AuthenticationService {
   private register_url = URLs.ApiBaseUrl + URLs.signUp;
   private login_url = URLs.ApiBaseUrl + URLs.login;
   private jwtHelper = new JwtHelperService();
+  private logout_url = URLs.ApiBaseUrl+URLs.logout
 
   constructor(
     private _httpClient: HttpClient, private _router: Router
@@ -26,8 +26,14 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  register(user: any): Observable<any> {
-    return this._httpClient.post(`${this.register_url}`, user);
+  register(user: any): Observable<AuthResponse> {
+    return this._httpClient.post<AuthResponse>(`${this.register_url}`, user).pipe(
+      tap((response: AuthResponse) => {
+        if (response && response.token) {
+          this.setSession(response);
+        }
+      })
+    );
   }
 
   login(credentials: { email: string, password: string }): Observable<AuthResponse> {
@@ -40,16 +46,33 @@ export class AuthenticationService {
     );
   }
 
+  logout(): Observable<boolean> {
+    return this._httpClient.post(`${this.logout_url}`, {}).pipe(
+      switchMap(() => of(true)),
+      catchError(error => {
+        console.error('Logout error', error);
+        return of(false);
+      }),
+      finalize(() => {
+        this.clearSession();
+      })
+    );
+  }
+
+  private clearSession() {
+    localStorage.removeItem('auth');
+    this.currentUserSubject.next(null);
+    this._router.navigate(['/login']);
+  }
+
+
+
   private setSession(authResult: AuthResponse) {
     localStorage.setItem('auth', JSON.stringify(authResult));
     this.currentUserSubject.next(authResult);
   }
 
-  logout() {
-    localStorage.removeItem('auth');
-    this.currentUserSubject.next(null);
-    this._router.navigate(['/login'])
-  }
+
 
   isLoggedIn(): boolean {
     const auth = this.getUserFromStorage();
@@ -78,35 +101,25 @@ export class AuthenticationService {
     return currentUser ? currentUser.roles : [];
   }
 
-  getUserId(): number | null {
-    const currentUser = this.getCurrentUser();
-    return currentUser ? currentUser.id : null;
-  }
 
-  public isDoctor(): boolean
-  {
+
+  public isDoctor(): boolean {
     return this.getRoles().some(role => role.name === 'DOCTOR');
   }
 
-  public isPatient(): boolean
-  {
+  public isPatient(): boolean {
     return this.getRoles().some(role => role.name === 'PATIENT');
   }
 
 
   getRedirectUrl(): string {
-    const roles = this.getRoles();
-    const userId = this.getUserId();
-
-    if (!roles.length || !userId) return '/home';
-
 
     if (this.isDoctor() && this.isPatient()) {
-      return '/';
+      return '/doctor/profile';
     } else if (this.isDoctor()) {
-      return `/doctor/${userId}`;
+      return `/doctor/profile`;
     } else if (this.isPatient()) {
-      return `/patient/${userId}`;
+      return `/patient/profile`;
     }
 
     return '/home';
