@@ -18,6 +18,12 @@ export const activeUserGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
+  if(!authService.isLoggedIn())
+  {
+    router.navigate(['/login']);
+    return false
+  }
+
   return true;
 
 };
