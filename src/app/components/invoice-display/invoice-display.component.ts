@@ -1,33 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../interfaces/invoice';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-
 
 @Component({
   selector: 'app-invoice-display',
   standalone: true,
-  imports: [CommonModule,MatTableModule],
+  imports: [CommonModule, MatTableModule],
   templateUrl: './invoice-display.component.html',
-  styleUrl: './invoice-display.component.css'
+  styleUrls: ['./invoice-display.component.css']
 })
 export class InvoiceDisplayComponent implements OnInit {
-  
-  patientId=4; 
+
   invoices: Invoice[] = [];
   displayedColumns: string[] = ['createdAt', 'amount', 'status'];
+  patientId: number;
 
-  constructor(private invoiceService: InvoiceService) {}
+  constructor(
+    private invoiceService: InvoiceService,
+    private authService: AuthenticationService 
+  ) {}
 
   ngOnInit(): void {
-    if (this.patientId) {
-      this.loadInvoices();
-    }
+  
   }
 
-  loadInvoices(): void {
-    this.invoiceService.getInvoicesByPatientId(this.patientId).subscribe({
+  loadInvoices(patientId: number): void {
+    this.invoiceService.getInvoicesByPatientId(patientId).subscribe({
       next: (data) => {
         this.invoices = data;
       },

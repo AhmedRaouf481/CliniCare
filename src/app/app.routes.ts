@@ -12,6 +12,7 @@ import {UnauthorizedComponent} from "./components/errors/unauthorized/unauthoriz
 import {NotFoundComponent} from "./components/errors/not-found/not-found.component";
 import {activeUserGuard} from "./guards/active-user/active-user.guard";
 import {HomeComponent} from "./components/home/home.component";
+import { MedicalRecordComponent } from './components/medical-record/medical-record.component';
 
 export const routes: Routes = [
 
@@ -96,5 +97,11 @@ export const routes: Routes = [
     path: '**',
     component: NotFoundComponent,
     title: 'Not Found !'
+  },
+  {
+    path: 'medicalRecord/display/:id',
+    component:MedicalRecordComponent,
+    title:'Display medicalRecord'
+
   }
 ];

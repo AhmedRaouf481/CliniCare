@@ -1,80 +1,33 @@
-<div class="max-w-2xl mx-auto p-8 bg-gradient-to-r from-white to-blue-50 rounded-3xl shadow-2xl mt-10">
-    <form (ngSubmit)="createInvoice()" class="space-y-10">
-      <div class="border-b-2 border-gray-200 pb-6">
-        <h2 class="text-4xl font-extrabold text-gray-900">Create New Invoice</h2>
-        <p class="text-lg text-gray-600 mt-2">Enter the invoice details</p>
-      </div>
-  
-      <div class="space-y-4">
-        <div>
-          <label for="patientId" class="block text-lg font-medium text-gray-800">Patient ID</label>
-          <div class="mt-2 relative rounded-md shadow-lg">
-            <input
-              id="patientId"
-              [(ngModel)]="invoice.patientId"
-              name="patientId"
-              type="number"
-              required
-              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
-              placeholder="Enter patient ID"
-            />
+<section class="bg-white">
+  <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Create Invoice</h2>
+      <form [formGroup]="createForm" (ngSubmit)="createInvoice()">
+          <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+              
+              <div class="w-full">
+                  <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Amount</label>
+                  <input type="number" name="amount" id="amount" formControlName="amount"
+                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                         [class.border-red-700]="createForm.get('amount')?.invalid && createForm.get('amount')?.touched"
+                         placeholder="Enter Amount" required="">
+                  <small *ngIf="createForm.get('amount')?.invalid && createForm.get('amount')?.touched"
+                         class="mt-2 text-sm text-red-600">Amount is required and must be a positive number!</small>
+              </div>
+              <div class="w-full">
+                  <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                  <input type="text" name="status" id="status" formControlName="status"
+                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                         [class.border-red-700]="createForm.get('status')?.invalid && createForm.get('status')?.touched"
+                         placeholder="Invoice Status" required="">
+                  <small *ngIf="createForm.get('status')?.invalid && createForm.get('status')?.touched"
+                         class="mt-2 text-sm text-red-600">Status is required!</small>
+              </div>
           </div>
-        </div>
-  
-        <div>
-          <label for="appointmentId" class="block text-lg font-medium text-gray-800">Appointment ID</label>
-          <div class="mt-2 relative rounded-md shadow-lg">
-            <input
-              id="appointmentId"
-              [(ngModel)]="invoice.appointmentId"
-              name="appointmentId"
-              type="number"
-              required
-              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
-              placeholder="Enter appointment ID"
-            />
+          <div class="flex items-center gap-4 mt-4">
+              <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  Create Invoice
+              </button>
           </div>
-        </div>
-  
-        <div>
-          <label for="amount" class="block text-lg font-medium text-gray-800">Amount</label>
-          <div class="mt-2 relative rounded-md shadow-lg">
-            <input
-              id="amount"
-              [(ngModel)]="invoice.amount"
-              name="amount"
-              type="number"
-              required
-              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
-              placeholder="Enter invoice amount"
-            />
-          </div>
-        </div>
-  
-        <div>
-          <label for="status" class="block text-lg font-medium text-gray-800">Status</label>
-          <div class="mt-2 relative rounded-md shadow-lg">
-            <input
-              id="status"
-              [(ngModel)]="invoice.status"
-              name="status"
-              type="text"
-              required
-              class="block w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-400 focus:border-transparent transition-transform duration-200 ease-in-out transform hover:scale-105"
-              placeholder="Enter invoice status"
-            />
-          </div>
-        </div>
-      </div>
-  
-      <div class="flex justify-end pt-6 border-t-2 border-gray-200">
-        <button
-          type="submit"
-          class="px-10 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-offset-2 transition-transform duration-200 ease-in-out transform hover:scale-105"
-        >
-          Create Invoice
-        </button>
-      </div>
-    </form>
+      </form>
   </div>
-  
+</section>
