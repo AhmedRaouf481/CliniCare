@@ -1,0 +1,39 @@
+<div class="mb-8">
+    <form
+      [formGroup]="searchForm"
+      class="grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4"
+    >
+      <app-searchable-select-field
+        [label]="'Doctor'"
+        [form]="searchForm"
+        [controlName]="'doctor'"
+        [placeholder]="'Pick one'"
+        [options]="doctorOptions"
+      />
+      <app-searchable-select-field
+        [label]="'Clinic'"
+        [form]="searchForm"
+        [controlName]="'clinic'"
+        [placeholder]="'Pick one'"
+        [options]="clinicOptions"
+      />
+      <app-searchable-select-field
+        [label]="'Location'"
+        [form]="searchForm"
+        [controlName]="'location'"
+        [placeholder]="locationOptions.length===0?'Choose clinic to show locations':'Pick one'"
+        [options]="locationOptions"
+      />
+      
+      <div class="flex items-center justify-end pb-4">
+      
+          <button mat-flat-button (click)="resetFilters()" >Reset</button>
+      </div>
+  </form>
+    <div class="grid lg:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
+      @for (slot of slots; track $index) {
+      <app-slot-card [slot]="slot"></app-slot-card>
+      }
+    </div>
+  </div>
+  

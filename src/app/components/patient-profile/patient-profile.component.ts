@@ -14,7 +14,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './patient-profile.component.css'
 })
 export class PatientProfileComponent implements OnInit {
-  patient: Patient | undefined;
+  patient!: Patient | undefined;
   editForm!: FormGroup;
 
   constructor(
@@ -25,8 +25,7 @@ export class PatientProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.patientService.getPatientDetails(id).subscribe((data) => {
+    this.patientService.getPatientDetails().subscribe((data) => {
       this.patient = data;
       this.populateForm();
     });
@@ -44,7 +43,9 @@ export class PatientProfileComponent implements OnInit {
 }
 
   savePatientDetails(): void {
+    Object.assign(this.patient,this.editForm.value)
     if (this.patient) {
+      console.log(this.patient);
       this.patientService.updatePatientDetails(this.patient).subscribe(() => {
         this.showSuccessMessage(); // Show success message
       });

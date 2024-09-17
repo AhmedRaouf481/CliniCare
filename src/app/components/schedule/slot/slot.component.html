@@ -5,36 +5,33 @@
     [list]="doctorSlots"
   />
 </div>
-<form [formGroup]="slotForm" class="example-form">
-  <app-multi-select-field
+<form [formGroup]="slotForm" class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+  <app-searchable-select-field
     [label]="'Slot'"
     [form]="slotForm"
     [controlName]="'slot'"
     [placeholder]="'Pick one'"
     [options]="slotOptions"
-    class="w-1/4"
   />
-  <app-multi-select-field
+  <app-searchable-select-field
     [label]="'Clinic'"
     [form]="slotForm"
     [controlName]="'clinic'"
     [placeholder]="'Pick one'"
     [options]="clinicOptions"
-    class="w-1/4"
   />
   @if (locationOptions.length>0) {
 
-  <app-multi-select-field
+  <app-searchable-select-field
     [label]="'Location'"
     [form]="slotForm"
     [controlName]="'location'"
     [placeholder]="'Pick one'"
     [options]="locationOptions"
-    class="w-1/4"
   />
   }
   @if (isEdit) {
-    <mat-form-field class="w-1/4">
+    <mat-form-field>
       <mat-label>Day</mat-label>
       <mat-select [formControlName]="'weekDay'" >
         @for (day of week; track $index) {

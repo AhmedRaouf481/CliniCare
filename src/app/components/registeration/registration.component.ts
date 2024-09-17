@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   specializations: Specialization[] = [];
   registerForm!: FormGroup;
   subs: Subscription[] = [];
-
+  errorMessage!: string;
 
   constructor(private _doctorService: DoctorService,
               private _fb: FormBuilder, private _router: Router,
@@ -93,6 +93,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   toggleDoctorRegistration() {
     this.isDoctor.setValue(!this.isDoctor.value);
   }
+
   handleDoctorFieldsValidation(isDoctor: boolean) {
     const doctorFields = ['summary', 'salary', 'specialization'];
 
@@ -124,13 +125,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
-    const sub = this._authService.register(this.registerForm.value).subscribe({
-      next: (res: any) => {
-        console.log('user have been registered successfully', res);
-      }, error: (error: any) => {
-        console.error('error registering User', error);
-      }
-    })
+      const sub = this._authService.register(this.registerForm.value).subscribe({
+        next: (res: any) => {
+          console.log('user have been registered successfully', res);
+          if (this.isDoctor.value) {
+            this._router.navigate(['/doctor/profile']);
+          } else {
+            this._router.navigate(['/patient/profile']);
+          }
+        }, error: (error: any) => {
+          console.error('error registering User', error);
+          this.errorMessage = "this username or Email are taken, try other values";
+        }
+      })
       this.subs.push(sub);
     } else {
       console.log('Form is invalid');

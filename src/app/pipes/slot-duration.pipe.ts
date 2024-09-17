@@ -9,7 +9,9 @@ export class SlotDurationPipe implements PipeTransform {
   transform(startTimeString: string,duration:number): string {
     let startTime = new Date(`${new Date().toDateString()} ${startTimeString}`)    
     let endTime = new Date(startTime.getTime() + (duration* 60 * 1000))
-      return `${startTime.toLocaleTimeString()} to ${endTime.toLocaleTimeString()}`
+    const options = { hour: '2-digit', minute: '2-digit' } as const;
+
+      return `${startTime.toLocaleTimeString([],options)} to ${endTime.toLocaleTimeString([],options)}`
   }
 
 }

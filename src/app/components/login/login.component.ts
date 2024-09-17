@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup
   subs: Subscription[] = [];
+  errorMessage!: string;
 
   constructor(private _authService: AuthenticationService, private _fb: FormBuilder, private _router: Router) {
   }
@@ -48,7 +49,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       },
       error: (error: any) => {
-        console.error("login failed", error)
+        console.error("login failed", error);
+        if(error.status === 400)
+        {
+          this.errorMessage = error.error.message
+        } else {
+          this.errorMessage = error.error.message
+        }
       }
     });
     this.subs.push(sub);

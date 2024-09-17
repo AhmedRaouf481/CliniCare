@@ -1,9 +1,7 @@
 <div class="bg-white text-gray-900 h-full p-8">
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-bold">Profile</h1>
-        <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <a [routerLink]="['/doctor/edit', doctor.id]">Edit</a>
-        </div>
+            <a class="bg-[var(--primary-color)] hover:bg-blue-700 text-white py-2 px-4 rounded" [routerLink]="['/doctor/edit/profile']">Edit</a>
     </div>
     <!--  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">-->
     <!--    <div class="bg-white rounded-lg p-6 flex flex-col items-center justify-center">-->

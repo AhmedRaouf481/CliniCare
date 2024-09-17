@@ -1,0 +1,42 @@
+<mat-card class="mb-4 p-4 bg-gray-100 border border-gray-200 shadow-sm">
+  <div class="flex items-center justify-between">
+    <div class="flex items-start pl-4">
+      <div>
+        <h6 class="font-bold text-lg flex items-center">
+          <mat-icon class="mr-1">person</mat-icon>
+          {{ appointment.personTitle }} {{ appointment.personName }}
+        </h6>
+        <div class="flex items-center text-gray-600 p-2">
+          <mat-icon class="mr-1">event</mat-icon>
+          {{ appointment.date }} - {{ appointment.time | slotDuration : 30 }}
+        </div>
+        <div class="flex items-center text-gray-500 p-2">
+          <mat-icon class="mr-1">location_on</mat-icon>
+          {{ appointment.clinicName }}, {{ appointment.clinicLocation }}
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right" >
+      <div class="flex justify-end mt-4">
+        @if (!isToday) {
+        <button *ngIf="isCancel" mat-button color="warn" (click)="onCancelClick()">
+          Cancel
+        </button>
+        }
+        <button
+          mat-button
+          *ngIf="isEdit"
+        >
+         Edit
+        </button>
+        <button
+          mat-button
+          *ngIf="isDetails"
+        >
+         Details
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>

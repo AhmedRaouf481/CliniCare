@@ -20,8 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-multi-select-field',
+  selector: 'app-searchable-select-field',
   standalone: true,
+  templateUrl: './searchable-select-field.component.html',
+  styleUrl: './searchable-select-field.component.css',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -31,10 +33,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     AsyncPipe,
   ],
-  templateUrl: './multi-select-field.component.html',
-  styleUrls: ['./multi-select-field.component.css'],
 })
-export class MultiSelectFieldComponent implements OnInit, OnChanges {
+export class SearchableSelectFieldComponent implements OnInit, OnChanges {
   @Input() form!: FormGroup;
   @Input() controlName!: string;
   @Input() options: any[] = [];
@@ -69,10 +69,6 @@ export class MultiSelectFieldComponent implements OnInit, OnChanges {
   }
   displayFn(option: any): string { // ChatGPt
     return option && option.name ? option.name : '';
-  }
-  onOptionSelected(event: any) {
-    const selectedOption = event.option.value;
-    console.log('Selected:', selectedOption);
   }
    // Method to filter the options
    private _filter(name: string): any[] {

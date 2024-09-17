@@ -1,6 +1,9 @@
+import { Doctor } from "./doctor";
+
 export interface Slot {
   id: number;
   startTime: string;
+  doctor?:Doctor
   clinicLocation: {
     id: number;
     city: string;

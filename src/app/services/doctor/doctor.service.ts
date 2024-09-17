@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Doctor} from "../../interfaces/doctor";
 import {Specialization} from "../../interfaces/Specialization";
 import {HttpHeaders} from "@angular/common/http";
+import {URLs} from "../../shared/api/api-urls";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,15 @@ export class DoctorService {
   private doctors_api_url = "http://localhost:8080/api/doctors"
   private specs_api_url = "http://localhost:8080/api/specs"
   private doctor_clinics_url = "http://localhost:8080/api/doctor-clinic"
+  private doctor_profile = URLs.ApiBaseUrl + URLs.profile
 
-  getDoctor(id: number): Observable<Doctor> {
+  getAllDoctors(): Observable<Doctor[]>
+  {
+    return this._httpClient.get<Doctor[]>(`${this.doctors_api_url}`);
+  }
 
-    return this._httpClient.get<Doctor>(`${this.doctors_api_url}/${id}`);
+  getDoctor(): Observable<Doctor> {
+    return this._httpClient.get<Doctor>(this.doctor_profile);
   }
 
   getAllSpecs(): Observable<Specialization[]> {

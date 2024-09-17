@@ -3,7 +3,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { SlotDurationPipe } from '../../pipes/slot-duration.pipe';
+import { SlotDurationPipe } from '../../../../pipes/slot-duration.pipe';
 
 @Component({
   selector: 'app-list',

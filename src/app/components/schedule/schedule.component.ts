@@ -2,6 +2,7 @@ import { Component, viewChild } from '@angular/core';
 import { SlotComponent } from './slot/slot.component';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -23,4 +24,12 @@ export class ScheduleComponent {
     'Thursday',
     'Friday',
   ];
+  currentRole: string;
+  constructor(
+    private router: Router
+  ) {
+    let currentRole = localStorage.getItem('currentRole');
+    if (currentRole !== 'doctor') {
+      this.router.navigate([`/${currentRole}/profile`]);    }
+  }
 }

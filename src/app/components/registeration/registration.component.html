@@ -1,7 +1,7 @@
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class=" bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <!--    <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">-->
-    <div class="logo bg-white mx-auto h-10 w-auto rounded-[20rem] flex justify-center">
+    <div class="logo  mx-auto w-auto rounded-[20rem] flex justify-center">
       <a routerLink="/" class="text-5xl">
         Clini<span class="text-[var(--primary-color)]">Care</span>
       </a>
@@ -189,6 +189,12 @@
           </a>
         </p>
       </div>
+      @if (errorMessage) {
+        <div class="mt-6">
+          <strong class="font-bold mx-1.5 text-red-800">Error!</strong>
+          <span class="block sm:inline">{{ errorMessage }}</span>
+        </div>
+      }
     </div>
   </div>
 </div>

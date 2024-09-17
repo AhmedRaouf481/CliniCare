@@ -1,28 +1,10 @@
 <!-- app-layout.component.html -->
 <div class="flex flex-col h-screen bg-gray-100">
-  <!-- Navbar -->
-  <!-- <nav class="bg-blue-600 p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <a class="text-white text-lg font-bold" routerLink="/">CliniCare</a>
-      <ul class="flex space-x-4">
-        <li>
-          <a routerLink="/patient/11" class="text-white hover:text-blue-300">Profile</a>
-        </li>
-        <li>
-          <a routerLink="/dashboard" class="text-white hover:text-blue-300">Dashboard</a>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
-<app-navbar></app-navbar>
-  <!-- Main content area -->
-  <!-- <div class="flex flex-1 overflow-hidden"> -->
-    <!-- Sidebar -->
-    <!-- <app-sidenav class="flex-shrink-0"></app-sidenav> -->
+  @if (authService.isLoggedIn()) {
 
-    <!-- Router outlet -->
-    <main class="flex-1 pt-4 px-16 overflow-y-auto">
-      <router-outlet></router-outlet>
-    </main>
-  <!-- </div> -->
+  <app-navbar></app-navbar>
+  }
+  <main class="flex-1 pt-4 px-16">
+    <router-outlet></router-outlet>
+  </main>
 </div>
