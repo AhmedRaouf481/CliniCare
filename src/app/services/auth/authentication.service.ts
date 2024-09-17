@@ -83,12 +83,7 @@ export class AuthenticationService {
 
   private setSession(authResult: AuthResponse) {
     localStorage.setItem('auth', JSON.stringify(authResult));
-    if (
-      authResult.roles.length === 1 &&
-      authResult.roles.find((r) => r.name === 'PATIENT')
-    ) {
-      this.setCurrentRole('patient');
-    }
+    this.setCurrentRole('patient');
     this.currentUserSubject.next(authResult);
   }
 
