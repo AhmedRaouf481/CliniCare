@@ -14,6 +14,7 @@ import { AuthenticationService } from '../../services/auth/authentication.servic
 })
 export class MedicalRecordComponent implements OnInit {
   medicalRecord!: MedicalRecord;
+  patientId:number
 
   constructor(
     private medicalRecordService: MedicalRecordService,
@@ -22,7 +23,7 @@ export class MedicalRecordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const patientId = this.authService.getCurrentUser()?.id;
+    const patientId = this.patientId
 
     if (patientId !== undefined) {
       this.medicalRecordService.getMedicalRecordByPatientId(patientId).subscribe(

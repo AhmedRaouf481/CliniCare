@@ -16,6 +16,7 @@ export class InvoiceDisplayComponent implements OnInit {
 
   invoices: Invoice[] = [];
   displayedColumns: string[] = ['createdAt', 'amount', 'status'];
+  patientId: number;
 
   constructor(
     private invoiceService: InvoiceService,
@@ -23,12 +24,7 @@ export class InvoiceDisplayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.getCurrentUser();
-
-    if (currentUser && this.authService.isPatient()) {
-      const patientId = currentUser.id; 
-      this.loadInvoices(patientId);
-    }
+  
   }
 
   loadInvoices(patientId: number): void {
